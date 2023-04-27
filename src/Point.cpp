@@ -6,6 +6,10 @@
 
 namespace path_planner {
 
+    Point::Point() {
+
+    }
+
     double Point::getX() const {
         if(!this->xSet)
             throw std::runtime_error("Point x value not set!");

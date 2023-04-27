@@ -1,5 +1,5 @@
 //
-// Created by 2211006 on 27/04/2023.
+// Created by carlostojal on 27/04/2023.
 //
 
 #include "../include/path_planner/State.h"
@@ -16,6 +16,10 @@ namespace path_planner {
 
     void State::setPosition(path_planner::Point position) {
         this->position = position;
+    }
+
+    State::State(const State &other) {
+        this->position = other.position;
     }
 
 } // path_planner
