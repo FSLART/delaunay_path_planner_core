@@ -27,7 +27,10 @@ namespace path_planner {
     }
 
     std::shared_ptr<State> Environment::generateGraph() {
-        // TODO
+        /* TODO
+         * - triangulate
+         * - set the pointers between states
+         */
         return this->carState;
     }
 

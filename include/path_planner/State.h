@@ -14,7 +14,7 @@ namespace path_planner {
     class State {
         private:
             path_planner::Point position;
-            std::list<std::shared_ptr<State>> children;
+            std::list<std::shared_ptr<State>> neighbors;
 
         public:
             State();
