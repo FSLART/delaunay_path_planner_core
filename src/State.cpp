@@ -10,7 +10,15 @@ namespace path_planner {
         this->position = path_planner::Point();
     }
 
-    path_planner::Point State::getPosition() {
+    State::State(const State &other) {
+        this->position = other.position;
+    }
+
+    State::State(const Point &point) {
+        this->position = point;
+    }
+
+    path_planner::Point State::getPosition() const {
         return this->position;
     }
 
@@ -18,8 +26,28 @@ namespace path_planner {
         this->position = position;
     }
 
-    State::State(const State &other) {
-        this->position = other.position;
+    void State::addNeighbor(std::shared_ptr<path_planner::State> neighbor) {
+        this->neighbors.insert(neighbor);
+    }
+
+    std::set<std::shared_ptr<State>> State::getNeighbors() const {
+        return this->neighbors;
+    }
+
+    void State::createIntermediate(std::shared_ptr<path_planner::State> neighbor) {
+        // verify the state is a neighbor
+        if(this->neighbors.count(neighbor) == 0)
+            throw std::runtime_error("State is not a neighbor!");
+
+        // compute the new point
+        path_planner::Point newPoint;
+        newPoint.setX((this->position.getX() + neighbor->position.getX()) / 2);
+        newPoint.setY((this->position.getY() + neighbor->position.getY()) / 2);
+
+        // create the new state
+        std::shared_ptr<path_planner::State> newState = std::make_shared<path_planner::State>(newPoint);
+
+        this->neighbors.insert(newState);
     }
 
 } // path_planner

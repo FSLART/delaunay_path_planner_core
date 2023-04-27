@@ -5,7 +5,7 @@
 #ifndef DELAUNAY_PATH_PLANNER_CORE_ENVIRONMENT_H
 #define DELAUNAY_PATH_PLANNER_CORE_ENVIRONMENT_H
 
-#include <list>
+#include <vector>
 #include <memory>
 #include <path_planner/Point.h>
 #include <path_planner/State.h>
@@ -14,13 +14,13 @@ namespace path_planner {
 
     class Environment {
         private:
-            std::list<path_planner::Point> cones;
+            std::vector<path_planner::Point> cones;
             std::shared_ptr<path_planner::State> carState = nullptr;
 
         public:
             Environment();
 
-            std::list<path_planner::Point> getCones() const;
+            std::vector<path_planner::Point> getCones() const;
             path_planner::State getCarState() const;
 
             void setCarState(const path_planner::State& state);
