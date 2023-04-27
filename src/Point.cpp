@@ -2,7 +2,7 @@
 // Created by carlostojal on 27/04/2023.
 //
 
-#include "../include/Point.h"
+#include <path_planner/Point.h>
 
 namespace path_planner {
 
