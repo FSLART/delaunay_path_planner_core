@@ -7,6 +7,7 @@
 #define MAX_SEARCH_ITERATIONS 200
 
 namespace path_planner {
+
     std::list<std::shared_ptr<path_planner::State>> AStar::search() {
 
         if(this->initialState == nullptr)

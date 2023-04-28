@@ -6,11 +6,13 @@
 
 namespace path_planner {
 
-    void SearchAlgorithm::setInitialState(std::shared_ptr<path_planner::State> initial) {
+    template <typename HeuristicT>
+    void SearchAlgorithm<HeuristicT>::setInitialState(std::shared_ptr<path_planner::State> initial) {
         this->initialState = initial;
     }
 
-    void SearchAlgorithm::setGoalState(std::shared_ptr<path_planner::State> goal) {
+    template <typename HeuristicT>
+    void SearchAlgorithm<HeuristicT>::setGoalState(std::shared_ptr<path_planner::State> goal) {
         this->goalState = goal;
     }
 

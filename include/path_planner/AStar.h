@@ -12,9 +12,7 @@
 
 namespace path_planner {
 
-    class AStar : SearchAlgorithm {
-        private:
-            AStarHeuristic heuristic;
+    class AStar : SearchAlgorithm<AStarHeuristic> {
 
         public:
             std::list<std::shared_ptr<path_planner::State>> search() override;

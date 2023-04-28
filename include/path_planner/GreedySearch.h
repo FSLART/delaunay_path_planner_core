@@ -10,10 +10,7 @@
 
 namespace path_planner {
 
-    class GreedySearch : SearchAlgorithm {
-
-        private:
-            GreedyHeuristic heuristic;
+    class GreedySearch : SearchAlgorithm<GreedyHeuristic> {
 
         public:
             std::list<std::shared_ptr<path_planner::State>> search() override;

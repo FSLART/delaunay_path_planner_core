@@ -12,10 +12,12 @@
 
 namespace path_planner {
 
+    template <typename HeuristicT>
     class SearchAlgorithm {
         protected:
             std::shared_ptr<path_planner::State> initialState = nullptr;
             std::shared_ptr<path_planner::State> goalState = nullptr;
+            HeuristicT heuristic;
 
         public:
             void setInitialState(std::shared_ptr<path_planner::State> initial);
