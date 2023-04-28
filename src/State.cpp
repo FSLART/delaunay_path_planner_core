@@ -26,8 +26,22 @@ namespace path_planner {
         this->position = position;
     }
 
+    bool State::hasNeighbor(std::shared_ptr<path_planner::State> neighbor) {
+        return this->neighbors.count(neighbor) > 0;
+    }
+
     void State::addNeighbor(std::shared_ptr<path_planner::State> neighbor) {
+        if(neighbor == nullptr)
+            throw std::runtime_error("Tried to add a null neighbor!");
+
         this->neighbors.insert(neighbor);
+    }
+
+    void State::removeNeighbor(std::shared_ptr<path_planner::State> neighbor) {
+        if(!this->hasNeighbor(neighbor))
+            throw std::runtime_error("Tried to remove a state which is not a neighbor!");
+
+        this->neighbors.erase(neighbor);
     }
 
     std::set<std::shared_ptr<State>> State::getNeighbors() const {
@@ -36,7 +50,7 @@ namespace path_planner {
 
     std::shared_ptr<path_planner::State> State::createIntermediate(std::shared_ptr<path_planner::State> neighbor) {
         // verify the state is a neighbor
-        if(this->neighbors.count(neighbor) == 0)
+        if(!this->hasNeighbor(neighbor))
             throw std::runtime_error("State is not a neighbor!");
 
         // compute the new point

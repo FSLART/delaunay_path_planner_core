@@ -43,7 +43,7 @@ namespace path_planner {
             // check if it is the first exploration
             if(stateToExplore != this->initialState) {
                 // the new minimum is not a neighbor of the last explored node, meaning the search changed branch
-                if (stateToExplore->getNeighbors().count(currMinCostNode) == 0) {
+                if (stateToExplore->hasNeighbor(currMinCostNode)) {
 
                     // remove the last explored node from the action list
                     actionList.remove(stateToExplore);

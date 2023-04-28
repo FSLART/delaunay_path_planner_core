@@ -33,7 +33,9 @@ namespace path_planner {
             path_planner::Point getPosition() const;
             void setPosition(path_planner::Point position);
 
+            bool hasNeighbor(std::shared_ptr<path_planner::State> neighbor);
             void addNeighbor(std::shared_ptr<path_planner::State> neighbor);
+            void removeNeighbor(std::shared_ptr<path_planner::State> neighbor);
             std::set<std::shared_ptr<State>> getNeighbors() const;
 
             occupancy_type_t getOccupancy() const;

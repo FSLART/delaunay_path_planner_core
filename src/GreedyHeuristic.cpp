@@ -7,7 +7,7 @@
 namespace path_planner {
     double GreedyHeuristic::compute(std::shared_ptr<path_planner::State> state1, std::shared_ptr<path_planner::State> state2,
                                     std::shared_ptr<path_planner::State> goalState) {
-        if(state1->getNeighbors().count(state2) == 0)
+        if(state1->hasNeighbor(state2))
             throw std::runtime_error("Impossible to transition to state!");
 
         if(state2->getOccupancy() != FREE_SPACE)
