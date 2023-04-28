@@ -12,7 +12,7 @@
 namespace path_planner {
 
     class SearchAlgorithm {
-        private:
+        protected:
             std::shared_ptr<path_planner::State> initialState = nullptr;
             std::shared_ptr<path_planner::State> goalState = nullptr;
 
