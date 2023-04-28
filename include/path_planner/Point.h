@@ -6,6 +6,7 @@
 #define DELAUNAY_PATH_PLANNER_CORE_POINT_H
 
 #include <stdexcept>
+#include <math.h>
 
 namespace path_planner {
 
@@ -31,6 +32,8 @@ namespace path_planner {
 
             double getTheta() const;
             void setTheta(double theta);
+
+            double distanceTo(const Point& other);
     };
 
 } // path_planner

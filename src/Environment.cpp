@@ -34,24 +34,31 @@ namespace path_planner {
         stateSet.insert(this->carState);
 
         // add all cone states to the set
-        for(auto coneIter = this->cones.begin(); coneIter != this->cones.end(); coneIter++)
-            stateSet.insert(std::make_shared<path_planner::State>(*coneIter));
+        for(auto & cone : this->cones)
+            stateSet.insert(std::make_shared<path_planner::State>(cone));
 
         // connect all states
         for(auto stateIter = stateSet.begin(); stateIter != stateSet.end(); stateIter++) {
-            for(auto stateIter1 = stateSet.begin(); stateIter1 != stateSet.end(); stateIter1++) {
-                (*stateIter)->addNeighbor(*stateIter1);
+            for(const auto & stateIter1 : stateSet) {
+                (*stateIter)->addNeighbor(stateIter1);
             }
         }
 
         // subdivide
-        for(auto stateIter = stateSet.begin(); stateIter != stateSet.end(); stateIter++) {
+        std::set<std::shared_ptr<path_planner::State>> midPointsSet;
+        for(const auto & stateIter : stateSet) {
             // get neighbor set
-            std::set neighbors = (*stateIter)->getNeighbors();
+            std::set neighbors = stateIter->getNeighbors();
             // create intermediate state between all neighbors
-            for(auto neighborIter = neighbors.begin(); neighborIter != neighbors.end(); neighborIter++) {
-                (*stateIter)->createIntermediate(*neighborIter);
+            for(const auto & neighbor : neighbors) {
+                midPointsSet.insert(stateIter->createIntermediate(neighbor));
             }
+        }
+
+        // connect midpoints among them
+        for(auto midIter = midPointsSet.begin(); midIter != midPointsSet.end(); midIter++) {
+            for(const auto & midIter1 : midPointsSet)
+                (*midIter)->addNeighbor(midIter1);
         }
 
         // return the current car state as an entry point

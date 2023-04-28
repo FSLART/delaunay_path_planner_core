@@ -34,7 +34,7 @@ namespace path_planner {
         return this->neighbors;
     }
 
-    void State::createIntermediate(std::shared_ptr<path_planner::State> neighbor) {
+    std::shared_ptr<path_planner::State> State::createIntermediate(std::shared_ptr<path_planner::State> neighbor) {
         // verify the state is a neighbor
         if(this->neighbors.count(neighbor) == 0)
             throw std::runtime_error("State is not a neighbor!");
@@ -48,6 +48,16 @@ namespace path_planner {
         std::shared_ptr<path_planner::State> newState = std::make_shared<path_planner::State>(newPoint);
 
         this->neighbors.insert(newState);
+
+        return newState;
+    }
+
+    occupancy_type_t State::getOccupancy() const {
+        return this->occupancy;
+    }
+
+    void State::setOccupancy(occupancy_type_t occupancy) {
+        this->occupancy = occupancy;
     }
 
 } // path_planner

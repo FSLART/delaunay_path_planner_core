@@ -8,6 +8,7 @@
 #include <list>
 #include <memory>
 #include <path_planner/State.h>
+#include <path_planner/Heuristic.h>
 
 namespace path_planner {
 

@@ -45,4 +45,9 @@ namespace path_planner {
         this->thetaSet = true;
         this->theta = theta;
     }
+
+    double Point::distanceTo(const Point &other) {
+        return std::sqrt(std::pow(std::abs(this->x - other.x), 2) +
+            std::pow(std::abs(this->y - other.y), 2));
+    }
 } // path_planner

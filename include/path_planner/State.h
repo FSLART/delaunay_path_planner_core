@@ -11,10 +11,17 @@
 
 namespace path_planner {
 
+    enum occupancy_type_t {
+        CAR_OCCUPANCY,
+        CONE_OCCUPANCY,
+        FREE_SPACE
+    };
+
     class State {
         private:
             path_planner::Point position;
             std::set<std::shared_ptr<State>> neighbors;
+            occupancy_type_t occupancy = FREE_SPACE;
 
         public:
             State();
@@ -23,11 +30,15 @@ namespace path_planner {
 
             path_planner::Point getPosition() const;
             void setPosition(path_planner::Point position);
+
             void addNeighbor(std::shared_ptr<path_planner::State> neighbor);
             std::set<std::shared_ptr<State>> getNeighbors() const;
 
+            occupancy_type_t getOccupancy() const;
+            void setOccupancy(occupancy_type_t occupancy);
+
             // create a state in the mean distance between the current and the neighbor
-            void createIntermediate(std::shared_ptr<path_planner::State> neighbor);
+            std::shared_ptr<path_planner::State> createIntermediate(std::shared_ptr<path_planner::State> neighbor);
     };
 
 } // path_planner
