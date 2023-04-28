@@ -5,15 +5,15 @@
 #ifndef DELAUNAY_PATH_PLANNER_CORE_HEURISTIC_H
 #define DELAUNAY_PATH_PLANNER_CORE_HEURISTIC_H
 
+#include <memory>
 #include <path_planner/State.h>
-#include <limits>
 
 namespace path_planner {
 
     class Heuristic {
-
         public:
-            static double compute(std::shared_ptr<path_planner::State> state1, std::shared_ptr<path_planner::State> state2);
+            virtual double compute(std::shared_ptr<path_planner::State> state1, std::shared_ptr<path_planner::State> state2,
+                                   std::shared_ptr<path_planner::State> goalState);
     };
 
 } // path_planner

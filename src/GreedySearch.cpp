@@ -28,7 +28,7 @@ namespace path_planner {
 
             for (auto neighborIter = currState->getNeighbors().begin();
                  neighborIter != currState->getNeighbors().end(); neighborIter++) {
-                double computedCost = Heuristic::compute(currState, *neighborIter);
+                double computedCost = this->heuristic.compute(currState, *neighborIter, this->goalState);
                 if (computedCost < minCost) {
                     // reset the min cost state
                     minCost = computedCost;
@@ -38,6 +38,7 @@ namespace path_planner {
 
             // add the best action to the list
             actionList.push_back(minCostState);
+            currState = minCostState;
 
             iterationCount++;
         }

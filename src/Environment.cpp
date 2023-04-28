@@ -28,6 +28,8 @@ namespace path_planner {
 
     std::shared_ptr<State> Environment::generateGraph() {
 
+        // TODO: this graph generation method will not work
+
         std::set<std::shared_ptr<path_planner::State>> stateSet;
 
         // add the current state to the set

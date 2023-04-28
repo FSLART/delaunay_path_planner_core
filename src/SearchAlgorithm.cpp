@@ -13,4 +13,5 @@ namespace path_planner {
     void SearchAlgorithm::setGoalState(std::shared_ptr<path_planner::State> goal) {
         this->goalState = goal;
     }
+
 } // path_planner

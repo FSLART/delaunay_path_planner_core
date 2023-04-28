@@ -6,10 +6,14 @@
 #define DELAUNAY_PATH_PLANNER_CORE_GREEDYSEARCH_H
 
 #include <path_planner/SearchAlgorithm.h>
+#include <path_planner/GreedyHeuristic.h>
 
 namespace path_planner {
 
     class GreedySearch : SearchAlgorithm {
+
+        private:
+            GreedyHeuristic heuristic;
 
         public:
             std::list<std::shared_ptr<path_planner::State>> search() override;

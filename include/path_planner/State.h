@@ -13,7 +13,9 @@ namespace path_planner {
 
     enum occupancy_type_t {
         CAR_OCCUPANCY,
-        CONE_OCCUPANCY,
+        YELLOW_CONE_OCCUPANCY,
+        BLUE_CONE_OCCUPANCY,
+        ORANGE_CONE_OCCUPANCY,
         FREE_SPACE
     };
 
