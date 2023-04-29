@@ -6,9 +6,9 @@
 #define DELAUNAY_PATH_PLANNER_CORE_HEURISTIC_H
 
 #include <memory>
-#include <path_planner/State.h>
+#include "path_planner/State.h"
 
-namespace path_planner {
+namespace path_planner::search::heuristics {
 
     class Heuristic {
         public:

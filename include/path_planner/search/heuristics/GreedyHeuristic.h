@@ -5,11 +5,11 @@
 #ifndef DELAUNAY_PATH_PLANNER_CORE_GREEDYHEURISTIC_H
 #define DELAUNAY_PATH_PLANNER_CORE_GREEDYHEURISTIC_H
 
-#include <path_planner/State.h>
+#include "path_planner/State.h"
 #include <limits>
-#include <path_planner/Heuristic.h>
+#include "path_planner/search/heuristics/Heuristic.h"
 
-namespace path_planner {
+namespace path_planner::search::heuristics {
 
     class GreedyHeuristic : Heuristic {
 

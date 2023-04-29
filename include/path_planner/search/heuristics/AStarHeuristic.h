@@ -5,9 +5,9 @@
 #ifndef DELAUNAY_PATH_PLANNER_CORE_ASTARHEURISTIC_H
 #define DELAUNAY_PATH_PLANNER_CORE_ASTARHEURISTIC_H
 
-#include <path_planner/Heuristic.h>
+#include "Heuristic.h"
 
-namespace path_planner {
+namespace path_planner::search::heuristics {
 
     class AStarHeuristic : Heuristic {
         public:

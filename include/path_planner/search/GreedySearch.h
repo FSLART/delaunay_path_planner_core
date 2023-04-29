@@ -5,12 +5,12 @@
 #ifndef DELAUNAY_PATH_PLANNER_CORE_GREEDYSEARCH_H
 #define DELAUNAY_PATH_PLANNER_CORE_GREEDYSEARCH_H
 
-#include <path_planner/SearchAlgorithm.h>
-#include <path_planner/GreedyHeuristic.h>
+#include "InformedSearchAlgorithm.h"
+#include "path_planner/search/heuristics/GreedyHeuristic.h"
 
-namespace path_planner {
+namespace path_planner::search {
 
-    class GreedySearch : SearchAlgorithm<GreedyHeuristic> {
+    class GreedySearch : InformedSearchAlgorithm<path_planner::search::heuristics::GreedyHeuristic> {
 
         public:
             std::list<std::shared_ptr<path_planner::State>> search() override;

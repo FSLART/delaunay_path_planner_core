@@ -2,18 +2,18 @@
 // Created by carlostojal on 28/04/2023.
 //
 
-#include <path_planner/AStar.h>
+#include "path_planner/search/AStar.h"
 
 #define MAX_SEARCH_ITERATIONS 200
 
-namespace path_planner {
+namespace path_planner::search {
 
     std::list<std::shared_ptr<path_planner::State>> AStar::search() {
 
-        if(this->initialState == nullptr)
+        if (this->initialState == nullptr)
             throw std::runtime_error("Initial state not set!");
 
-        if(this->goalState == nullptr)
+        if (this->goalState == nullptr)
             throw std::runtime_error("Goal state not set!");
 
         // initialize the frontier
@@ -30,19 +30,19 @@ namespace path_planner {
         // the node currently being explored
         actionList.push_back(this->initialState);
 
-        while(currMinCostNode != this->goalState) {
+        while (currMinCostNode != this->goalState) {
 
             // find the frontier minimum cost
-            for (auto & frontierIter : frontier) {
+            for (auto &frontierIter: frontier) {
                 double h = this->heuristic.compute(currMinCostNode, frontierIter, this->goalState);
-                if(h < minFrontierCost) {
+                if (h < minFrontierCost) {
                     minFrontierCost = h;
                     currMinCostNode = frontierIter;
                 }
             }
 
             // check if it is the first exploration
-            if(stateToExplore != this->initialState) {
+            if (stateToExplore != this->initialState) {
                 // the new minimum is not a neighbor of the last explored node, meaning the search changed branch
                 if (stateToExplore->hasNeighbor(currMinCostNode)) {
 
@@ -59,7 +59,7 @@ namespace path_planner {
             frontier.remove(stateToExplore);
 
             // explore the node
-            for(auto & neighborIter : stateToExplore->getNeighbors())
+            for (auto &neighborIter: stateToExplore->getNeighbors())
                 frontier.push_back(neighborIter);
 
         }

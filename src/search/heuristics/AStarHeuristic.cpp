@@ -2,11 +2,11 @@
 // Created by carlostojal on 28/04/2023.
 //
 
-#include "path_planner/AStarHeuristic.h"
+#include "path_planner/search/heuristics/AStarHeuristic.h"
 
-namespace path_planner {
-    double
-    AStarHeuristic::compute(std::shared_ptr<path_planner::State> state1, std::shared_ptr<path_planner::State> state2,
+namespace path_planner::search::heuristics {
+
+    double AStarHeuristic::compute(std::shared_ptr<path_planner::State> state1, std::shared_ptr<path_planner::State> state2,
                             std::shared_ptr<path_planner::State> goalState) {
 
         if(!state1->getNeighbors().count(state2))

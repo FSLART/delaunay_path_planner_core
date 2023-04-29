@@ -7,21 +7,23 @@
 
 #include <list>
 #include <memory>
-#include <path_planner/State.h>
-#include <path_planner/Heuristic.h>
+#include "path_planner/State.h"
+#include "path_planner/search/heuristics/Heuristic.h"
 
-namespace path_planner {
+namespace path_planner::search {
 
-    template <typename HeuristicT>
     class SearchAlgorithm {
         protected:
             std::shared_ptr<path_planner::State> initialState = nullptr;
             std::shared_ptr<path_planner::State> goalState = nullptr;
-            HeuristicT heuristic;
+            size_t maxIterations = 99;
 
         public:
             void setInitialState(std::shared_ptr<path_planner::State> initial);
             void setGoalState(std::shared_ptr<path_planner::State> goal);
+
+            size_t getMaxIterations() const;
+            void setMaxIterations(size_t n_iterations);
 
             virtual std::list<std::shared_ptr<path_planner::State>> search() = 0;
     };

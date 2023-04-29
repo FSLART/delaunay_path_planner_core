@@ -2,17 +2,17 @@
 // Created by carlostojal on 28/04/2023.
 //
 
-#include <path_planner/GreedySearch.h>
+#include "path_planner/search/GreedySearch.h"
 
 #define MAX_SEARCH_ITERATIONS 200
 
-namespace path_planner {
+namespace path_planner::search {
 
     std::list<std::shared_ptr<path_planner::State>> GreedySearch::search() {
-        if(this->initialState == nullptr)
+        if (this->initialState == nullptr)
             throw std::runtime_error("Initial state not set on search!");
 
-        if(this->goalState == nullptr)
+        if (this->goalState == nullptr)
             throw std::runtime_error("Goal state not set on search!");
 
         std::list<std::shared_ptr<path_planner::State>> actionList;
@@ -24,7 +24,7 @@ namespace path_planner {
         size_t iterationCount = 0;
 
         std::shared_ptr<path_planner::State> currState = this->initialState;
-        while(currState != goalState && iterationCount < MAX_SEARCH_ITERATIONS) {
+        while (currState != goalState && iterationCount < MAX_SEARCH_ITERATIONS) {
 
             for (auto neighborIter = currState->getNeighbors().begin();
                  neighborIter != currState->getNeighbors().end(); neighborIter++) {
