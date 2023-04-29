@@ -10,40 +10,45 @@ namespace path_planner {
 
     }
 
-    Point::Point(double x, double y) {
+    Point::Point(long int x, long int y) {
         this->setX(x);
         this->setY(y);
         this->cgalPoint = K::Point_2(x, y);
     }
 
-    Point::Point(double x, double y, double theta) {
+    Point::Point(long int x, long int y, double theta) {
         this->setX(x);
         this->setY(y);
         this->setTheta(theta);
         this->cgalPoint = K::Point_2(x, y);
     }
 
-    double Point::getX() const {
+    Point::Point(K::Point_2 p) {
+        this->setX(p.x());
+        this->setY(p.y());
+    }
+
+    long int Point::getX() const {
         if(!this->xSet)
             throw std::runtime_error("Point x value not set!");
 
         return x;
     }
 
-    void Point::setX(double x) {
+    void Point::setX(long int x) {
         this->xSet = true;
         this->x = x;
         this->tryInitCgalPoint(x, this->y);
     }
 
-    double Point::getY() const {
+    long int Point::getY() const {
         if(!this->ySet)
             throw std::runtime_error("Point y value not set!");
 
         return y;
     }
 
-    void Point::setY(double y) {
+    void Point::setY(long int y) {
         this->ySet = true;
         this->y = y;
         this->tryInitCgalPoint(x, this->y);
@@ -77,4 +82,13 @@ namespace path_planner {
         if(this->xSet && this->ySet)
             this->cgalPoint = K::Point_2(x, y);
     }
+
+    bool Point::operator==(const Point& other) const {
+        return this->x == other.x && this->y == other.y;
+    }
+
+    bool Point::operator==(const K::Point_2& other) const {
+        return this->getAsCGALPoint() == other;
+    }
+
 } // path_planner

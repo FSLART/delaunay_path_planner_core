@@ -43,6 +43,8 @@ namespace path_planner {
 
             // create a state in the mean distance between the current and the neighbor
             std::shared_ptr<path_planner::State> createIntermediate(std::shared_ptr<path_planner::State> neighbor);
+
+            bool operator==(const State& other) const;
     };
 
 } // path_planner

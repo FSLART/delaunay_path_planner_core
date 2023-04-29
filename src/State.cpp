@@ -73,4 +73,8 @@ namespace path_planner {
         this->occupancy = occupancy;
     }
 
+    bool State::operator==(const State& other) const {
+        return this->position == other.position;
+    }
+
 } // path_planner

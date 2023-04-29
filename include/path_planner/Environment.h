@@ -5,10 +5,16 @@
 #ifndef DELAUNAY_PATH_PLANNER_CORE_ENVIRONMENT_H
 #define DELAUNAY_PATH_PLANNER_CORE_ENVIRONMENT_H
 
+#include <set>
 #include <vector>
 #include <memory>
 #include <path_planner/Point.h>
 #include <path_planner/State.h>
+#include <CGAL/Exact_predicates_inexact_constructions_kernel.h>
+#include <CGAL/Delaunay_triangulation_2.h>
+
+typedef CGAL::Exact_predicates_inexact_constructions_kernel K;
+typedef CGAL::Delaunay_triangulation_2<K> Delaunay;
 
 namespace path_planner {
 
@@ -24,7 +30,7 @@ namespace path_planner {
             path_planner::State getCarState() const;
 
             void setCarState(const path_planner::State& state);
-            void addCone(path_planner::Point cone);
+            void addCone(const path_planner::Point& cone);
 
             std::shared_ptr<State> generateGraph();
     };

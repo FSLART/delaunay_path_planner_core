@@ -8,18 +8,16 @@
 #include <stdexcept>
 #include <math.h>
 #include <CGAL/Exact_predicates_inexact_constructions_kernel.h>
-#include <CGAL/Delaunay_triangulation_2.h>
 
 typedef CGAL::Exact_predicates_inexact_constructions_kernel K;
-typedef CGAL::Delaunay_triangulation_2<K> Delaunay;
 
 namespace path_planner {
 
     class Point {
 
         private:
-            double x;
-            double y;
+            long int x;
+            long int y;
             double theta;
 
             bool xSet = false;
@@ -33,14 +31,15 @@ namespace path_planner {
 
         public:
             Point();
-            Point(double x, double y);
-            Point(double x, double y, double theta);
+            Point(long int x, long int y);
+            Point(long int x, long int y, double theta);
+            Point(K::Point_2 p);
 
-            double getX() const;
-            void setX(double x);
+            long int getX() const;
+            void setX(long int x);
 
-            double getY() const;
-            void setY(double y);
+            long int getY() const;
+            void setY(long int y);
 
             double getTheta() const;
             void setTheta(double theta);
@@ -48,6 +47,9 @@ namespace path_planner {
             K::Point_2 getAsCGALPoint() const;
 
             double distanceTo(const Point& other);
+
+            bool operator==(const Point& other) const;
+            bool operator==(const K::Point_2& other) const;
     };
 
 } // path_planner
