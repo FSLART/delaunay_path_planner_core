@@ -54,9 +54,8 @@ namespace path_planner {
             throw std::runtime_error("State is not a neighbor!");
 
         // compute the new point
-        path_planner::Point newPoint;
-        newPoint.setX((this->position.getX() + neighbor->position.getX()) / 2);
-        newPoint.setY((this->position.getY() + neighbor->position.getY()) / 2);
+        path_planner::Point newPoint((this->position.getX() + neighbor->position.getX()) / 2,
+                                     (this->position.getY() + neighbor->position.getY()) / 2);
 
         // create the new state
         std::shared_ptr<path_planner::State> newState = std::make_shared<path_planner::State>(newPoint);
