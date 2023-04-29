@@ -37,8 +37,20 @@ namespace path_planner {
         for(auto iter : this->cones)
             dt.insert(iter.getAsCGALPoint());
 
-        // iterate edges
-        for(auto iter = dt.finite_edges_begin(); iter != dt.finite_edges_end(); ++iter) {
+        auto initial_edges = dt.finite_edges();
+
+        // re-triangulate with the midpoints
+        for(auto iter = initial_edges.begin(); iter != initial_edges.end(); ++iter) {
+            // get the vertices of this edge
+            K::Point_2 p1 = iter->first->vertex((iter->second+1)%3)->point();
+            K::Point_2 p2 = iter->first->vertex((iter->second+2)%3)->point();
+
+            // add the midpoint to the triangulation
+            dt.insert(K::Point_2((p1.x() + p2.x()) / 2, (p1.y() + p2.y()) / 2));
+        }
+
+        // create the relations
+        for(auto iter = dt.finite_edges_begin(); iter != dt.finite_edges_end(); iter++) {
             // get the vertices of this edge
             K::Point_2 p1 = iter->first->vertex((iter->second+1)%3)->point();
             K::Point_2 p2 = iter->first->vertex((iter->second+2)%3)->point();
