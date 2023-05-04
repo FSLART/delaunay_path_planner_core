@@ -2,7 +2,7 @@
 // Created by carlostojal on 28/04/2023.
 //
 
-#include "path_planner/search/AStar.h"
+#include <delaunay_path_planner_core/search/AStar.h>
 
 #define MAX_SEARCH_ITERATIONS 200
 

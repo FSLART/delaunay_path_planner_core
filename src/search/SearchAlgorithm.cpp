@@ -2,7 +2,7 @@
 // Created by carlostojal on 28/04/2023.
 //
 
-#include "path_planner/search/SearchAlgorithm.h"
+#include <delaunay_path_planner_core/search/SearchAlgorithm.h>
 
 namespace path_planner::search {
 

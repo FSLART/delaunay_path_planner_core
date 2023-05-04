@@ -2,7 +2,7 @@
 // Created by carlostojal on 27/04/2023.
 //
 
-#include "../include/path_planner/State.h"
+#include <delaunay_path_planner_core/State.h>
 
 namespace path_planner {
 

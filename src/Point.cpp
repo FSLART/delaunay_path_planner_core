@@ -2,7 +2,7 @@
 // Created by carlostojal on 27/04/2023.
 //
 
-#include <path_planner/Point.h>
+#include <delaunay_path_planner_core/Point.h>
 
 namespace path_planner {
 

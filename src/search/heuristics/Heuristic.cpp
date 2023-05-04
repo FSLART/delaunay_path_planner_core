@@ -2,7 +2,7 @@
 // Created by carlostojal on 28/04/2023.
 //
 
-#include "path_planner/search/heuristics/Heuristic.h"
+#include <delaunay_path_planner_core/search/heuristics/Heuristic.h>
 
 namespace path_planner::search::heuristics {
 
