@@ -9,6 +9,7 @@
 
 namespace path_planner {
 
+    /*! @brief An enumerator with the possible cone colors. */
     enum cone_color_t {
         BLUE,
         YELLOW,
@@ -16,6 +17,9 @@ namespace path_planner {
         UNKNOWN
     };
 
+    /*!
+     * @brief This class represents a cone, which is a point in space with a color.
+     */
     class Cone : public path_planner::Point {
         private:
             cone_color_t color;
@@ -23,7 +27,16 @@ namespace path_planner {
 
         public:
             Cone();
+            /*!
+             * Get the cone color.
+             * @return The color of the cone.
+             */
             cone_color_t getColor() const;
+
+            /*!
+             * Assign a color to the cone. Assign a value of the cone_color_t enum.
+             * @param color
+             */
             void setColor(cone_color_t color);
 
     };

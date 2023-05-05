@@ -5,7 +5,8 @@
 #include <delaunay_path_planner_core/PathPlanner.h>
 
 namespace path_planner {
-    std::list<path_planner::Path> PathPlanner::search() {
+
+    std::list<path_planner::Path> PathPlanner::search(const Environment &e) {
         return std::list<path_planner::Path>();
     }
 } // path_planner

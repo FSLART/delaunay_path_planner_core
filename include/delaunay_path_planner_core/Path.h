@@ -14,13 +14,19 @@ namespace path_planner {
     class Path {
 
         private:
+            /*! @brief List of states in order. */
             std::list<std::shared_ptr<path_planner::State>> states;
+            /*! @brief Cost of the path. */
             float cost = 0;
 
         public:
             Path();
             ~Path();
 
+            /*! @brief Add a state to the path.
+             *
+             * @param s The state to add.
+             * */
             void addState(const std::shared_ptr<path_planner::State>& s);
     };
 
