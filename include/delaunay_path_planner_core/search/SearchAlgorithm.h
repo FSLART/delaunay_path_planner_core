@@ -26,8 +26,6 @@ namespace path_planner::search {
             void setMaxIterations(size_t n_iterations);
 
             virtual std::list<std::shared_ptr<path_planner::State>> search() = 0;
-
-        friend void exploreNode();
     };
 
 } // path_planner
