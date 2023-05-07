@@ -31,12 +31,13 @@ namespace path_planner {
 
         public:
             Environment();
+            ~Environment();
 
             /*! @brief Get the cone collection. */
             std::vector<path_planner::Cone> getCones() const;
 
             /*! @brief Get the car state. */
-            path_planner::State getCarState() const;
+            std::shared_ptr<path_planner::State> getCarState() const;
 
             /*! @brief Set/update the car state.
              *

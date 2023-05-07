@@ -20,7 +20,7 @@ namespace path_planner {
         }
     }
 
-    void Path::addState(const std::shared_ptr<path_planner::State>& s) {
+    void Path::addState(const std::shared_ptr<path_planner::State>& s, float cost) {
 
         // the state list is empty, so we can't check
         if(this->states.empty()) {
@@ -34,5 +34,6 @@ namespace path_planner {
         }
 
         this->states.push_back(s);
+        this->cost += cost;
     }
 } // path_planner

@@ -8,7 +8,8 @@
 
 namespace path_planner::search {
 
-    std::list<std::shared_ptr<path_planner::State>> AStar::search() {
+    /*
+    path_planner::Path AStar::search() {
 
         if (this->initialState == nullptr)
             throw std::runtime_error("Initial state not set!");
@@ -25,10 +26,11 @@ namespace path_planner::search {
         std::shared_ptr<path_planner::State> stateToExplore = this->initialState;
         double minFrontierCost = std::numeric_limits<double>::infinity();
 
+        Path path;
         std::list<std::shared_ptr<path_planner::State>> actionList;
 
         // the node currently being explored
-        actionList.push_back(this->initialState);
+        path.addState(this->initialState, 0);
 
         while (currMinCostNode != this->goalState) {
 
@@ -66,4 +68,5 @@ namespace path_planner::search {
 
         return actionList;
     }
+     */
 } // path_planner

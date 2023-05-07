@@ -10,12 +10,17 @@ namespace path_planner {
         this->cones = std::vector<path_planner::Cone>();
     }
 
+    Environment::~Environment() {
+        // free the car state pointer
+        this->carState.reset();
+    }
+
     std::vector<path_planner::Cone> Environment::getCones() const {
         return this->cones;
     }
 
-    path_planner::State Environment::getCarState() const {
-        return *this->carState;
+    std::shared_ptr<path_planner::State> Environment::getCarState() const {
+        return this->carState;
     }
 
     void Environment::setCarState(const path_planner::State& state) {

@@ -8,6 +8,7 @@
 #include <delaunay_path_planner_core/Point.h>
 #include <set>
 #include <memory>
+#include "Cone.h"
 
 namespace path_planner {
 
@@ -19,7 +20,9 @@ namespace path_planner {
         FREE_SPACE
     };
 
-    /*! @brief This class represents a state in the planning environment */
+    /*! @brief This class represents a state in the planning environment.
+     * It is more accurate to simply consider this a graph node instead of a state, because cones are also
+     * states in the graph even tough the car can't go to that state. */
     class State {
         private:
             /*! @brief The position of the state in the world */
@@ -31,6 +34,7 @@ namespace path_planner {
 
         public:
             State();
+            ~State();
             /*! @brief Instantiate a State by copying the values of another */
             State(State const &other);
             /*! @brief Instantiate a State with a position */
@@ -63,8 +67,13 @@ namespace path_planner {
              */
             std::shared_ptr<path_planner::State> createIntermediate(std::shared_ptr<path_planner::State> neighbor);
 
+            std::shared_ptr<path_planner::State> getClosestBlueCone();
+            std::shared_ptr<path_planner::State> getClosestYellowCone();
+
             /*! @brief Compare this state with another */
             bool operator==(const State& other) const;
+
+            static cone_color_t occupancyTypeToConeColor(occupancy_type_t o);
     };
 
 } // path_planner

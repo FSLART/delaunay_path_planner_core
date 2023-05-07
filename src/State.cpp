@@ -18,6 +18,11 @@ namespace path_planner {
         this->position = point;
     }
 
+    State::~State() {
+        for(std::shared_ptr<State> n : neighbors)
+            n.reset();
+    }
+
     path_planner::Point State::getPosition() const {
         return this->position;
     }
@@ -75,6 +80,27 @@ namespace path_planner {
 
     bool State::operator==(const State& other) const {
         return this->position == other.position;
+    }
+
+    std::shared_ptr<path_planner::State> State::getClosestBlueCone() {
+
+        return std::shared_ptr<path_planner::State>();
+    }
+
+    std::shared_ptr<path_planner::State> State::getClosestYellowCone() {
+        return std::shared_ptr<path_planner::State>();
+    }
+
+    cone_color_t State::occupancyTypeToConeColor(occupancy_type_t o) {
+
+        if(o == YELLOW_CONE_OCCUPANCY)
+            return YELLOW;
+        else if(o == BLUE_CONE_OCCUPANCY)
+            return BLUE;
+        else if(o == ORANGE_CONE_OCCUPANCY)
+            return ORANGE;
+        else
+            return UNKNOWN;
     }
 
 } // path_planner

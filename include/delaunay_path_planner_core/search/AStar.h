@@ -15,7 +15,7 @@ namespace path_planner::search {
     class AStar : InformedSearchAlgorithm<path_planner::search::heuristics::AStarHeuristic> {
 
         public:
-            std::list<std::shared_ptr<path_planner::State>> search() override;
+            path_planner::Path search() override;
     };
 
 } // path_planner

@@ -27,7 +27,7 @@ namespace path_planner {
              *
              * @param s The state to add.
              * */
-            void addState(const std::shared_ptr<path_planner::State>& s);
+            void addState(const std::shared_ptr<path_planner::State>& s, float cost);
     };
 
 } // path_planner

@@ -8,15 +8,16 @@
 
 namespace path_planner::search {
 
-    std::list<std::shared_ptr<path_planner::State>> GreedySearch::search() {
+    path_planner::Path GreedySearch::search() {
         if (this->initialState == nullptr)
             throw std::runtime_error("Initial state not set on search!");
 
         if (this->goalState == nullptr)
             throw std::runtime_error("Goal state not set on search!");
 
-        std::list<std::shared_ptr<path_planner::State>> actionList;
-        actionList.push_back(this->initialState);
+        path_planner::Path p;
+
+        p.addState(this->initialState, 0);
 
         double minCost = std::numeric_limits<double>::infinity();
         std::shared_ptr<path_planner::State> minCostState = nullptr;
@@ -37,12 +38,12 @@ namespace path_planner::search {
             }
 
             // add the best action to the list
-            actionList.push_back(minCostState);
+            p.addState(minCostState, minCost);
             currState = minCostState;
 
             iterationCount++;
         }
 
-        return actionList;
+        return p;
     }
 } // path_planner
