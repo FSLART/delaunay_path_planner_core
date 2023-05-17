@@ -12,8 +12,10 @@ namespace path_planner::search::heuristics {
 
     class Heuristic {
         public:
-            virtual double compute(std::shared_ptr<path_planner::State> state1, std::shared_ptr<path_planner::State> state2,
-                                   std::shared_ptr<path_planner::State> goalState);
+            virtual double compute(const std::shared_ptr<path_planner::State>& state1,
+                                   const std::shared_ptr<path_planner::State>& state2,
+                                   const std::shared_ptr<path_planner::State>& goalState,
+                                   double currentGCost = 0) = 0;
     };
 
 } // path_planner

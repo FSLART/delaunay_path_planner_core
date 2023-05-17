@@ -6,8 +6,10 @@
 
 namespace path_planner::search::heuristics {
 
-    double Heuristic::compute(std::shared_ptr<path_planner::State> state1, std::shared_ptr<path_planner::State> state2,
-                              std::shared_ptr<path_planner::State> goalState) {
+    double Heuristic::compute(const std::shared_ptr<path_planner::State>& state1,
+                              const std::shared_ptr<path_planner::State>& state2,
+                              const std::shared_ptr<path_planner::State>& goalState,
+                              double currentGCost) {
         return 0;
     }
 } // path_planner

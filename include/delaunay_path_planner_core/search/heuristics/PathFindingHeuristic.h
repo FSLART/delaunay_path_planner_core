@@ -16,8 +16,10 @@ namespace path_planner {
 
             class PathFindingHeuristic : Heuristic {
                 public:
-                    double compute(std::shared_ptr<path_planner::State> state1, std::shared_ptr<path_planner::State> state2,
-                                   std::shared_ptr<path_planner::State> goalState) override;
+                    double compute(const std::shared_ptr<path_planner::State>& state1,
+                                   const std::shared_ptr<path_planner::State>& state2,
+                                   const std::shared_ptr<path_planner::State>& goalState,
+                                   double currentGCost = 0) override;
                     /*!
                      * @brief Find the closest cone of a given color starting from a state.
                      * It uses breadth first search to find the closest yellow and blue nodes, and the distance differences

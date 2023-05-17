@@ -7,7 +7,7 @@ find_package(CGAL REQUIRED)
 
 include_directories(include ${CGAL_INCLUDE_DIRS})
 
-add_library(delaunay_path_planner_core SHARED src/Point.cpp src/State.cpp src/Environment.cpp src/search/SearchAlgorithm.cpp src/search/heuristics/Heuristic.cpp src/search/AStar.cpp src/search/heuristics/AStarHeuristic.cpp src/search/InformedSearchAlgorithm.cpp src/Cone.cpp src/PathPlanner.cpp src/Path.cpp src/search/heuristics/PathFindingHeuristic.cpp include/delaunay_path_planner_core/search/heuristics/PathFindingHeuristic.h)
+add_library(delaunay_path_planner_core SHARED src/Point.cpp src/State.cpp src/Environment.cpp src/search/SearchAlgorithm.cpp src/search/heuristics/Heuristic.cpp src/search/AStar.cpp src/search/heuristics/AStarHeuristic.cpp src/search/InformedSearchAlgorithm.cpp src/Cone.cpp src/PathPlanner.cpp src/Path.cpp src/search/heuristics/PathFindingHeuristic.cpp include/delaunay_path_planner_core/search/heuristics/PathFindingHeuristic.h src/search/UniformCost.cpp include/delaunay_path_planner_core/search/UniformCost.h src/search/heuristics/ClosestConeFindingHeuristic.cpp include/delaunay_path_planner_core/search/heuristics/ClosestConeFindingHeuristic.h)
 target_link_libraries(delaunay_path_planner_core ${CGAL_LIBRARIES})
 
 install(TARGETS delaunay_path_planner_core LIBRARY DESTINATION /usr/lib/delaunay_path_planner_core)

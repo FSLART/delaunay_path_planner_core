@@ -11,8 +11,9 @@ namespace path_planner::search::heuristics {
 
     class AStarHeuristic : Heuristic {
         public:
-            double compute(std::shared_ptr<path_planner::State> state1, std::shared_ptr<path_planner::State> state2,
-                               std::shared_ptr<path_planner::State> goalState) override;
+            double compute(const std::shared_ptr<path_planner::State>& state1,
+                           const std::shared_ptr<path_planner::State>& state2,
+                           const std::shared_ptr<path_planner::State>& goalState, double currentGCost) override;
     };
 
 } // path_planner

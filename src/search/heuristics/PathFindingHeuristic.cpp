@@ -14,9 +14,10 @@ namespace path_planner {
                 *found = std::move(instance->coneFindingSearch(c, std::move(initialState)));
             }
 
-            double PathFindingHeuristic::compute(std::shared_ptr<path_planner::State> state1,
-                                                 std::shared_ptr<path_planner::State> state2,
-                                                 std::shared_ptr<path_planner::State> goalState) {
+            double PathFindingHeuristic::compute(const std::shared_ptr<path_planner::State>& state1,
+                                                 const std::shared_ptr<path_planner::State>& state2,
+                                                 const std::shared_ptr<path_planner::State>& goalState,
+                                                 double currentGCost) {
 
                 // find the closest blue cone and compute distance
                 std::shared_ptr<path_planner::State> closestBlue;
@@ -39,13 +40,6 @@ namespace path_planner {
                  * that node is deviated from the center line */
                 double blueDistance = state2->getPosition().distanceTo(closestBlue->getPosition());
                 double yellowDistance = state2->getPosition().distanceTo(closestYellow->getPosition());
-
-                // free the pointers
-                state1.reset();
-                state2.reset();
-                closestBlue.reset();
-                closestYellow.reset();
-                goalState.reset();
 
                 return abs(blueDistance - yellowDistance);
             }
