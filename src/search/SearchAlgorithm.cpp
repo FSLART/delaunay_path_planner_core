@@ -22,4 +22,9 @@ namespace path_planner::search {
         this->maxIterations = n_iterations;
     }
 
+    void SearchAlgorithm::setComparator(std::function<bool(const std::shared_ptr<path_planner::State> &,
+                                                           const std::shared_ptr<path_planner::State> &)> cmp) {
+        this->cmp = cmp;
+    }
+
 } // path_planner

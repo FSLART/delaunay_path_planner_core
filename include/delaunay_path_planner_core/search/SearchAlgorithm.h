@@ -18,8 +18,8 @@ namespace path_planner::search {
             std::shared_ptr<path_planner::State> initialState = nullptr;
             std::shared_ptr<path_planner::State> goalState = nullptr;
             size_t maxIterations = 99;
-            // TODO: use custom comparator passed to the search algorithm
-            std::function<bool(const std::shared_ptr<path_planner::State>&, const std::shared_ptr<path_planner::State>&)> cmp;
+            std::function<bool(const std::shared_ptr<path_planner::State>&,
+                    const std::shared_ptr<path_planner::State>&)> cmp = nullptr;
 
         public:
             void setInitialState(std::shared_ptr<path_planner::State> initial);
@@ -27,6 +27,9 @@ namespace path_planner::search {
 
             size_t getMaxIterations() const;
             void setMaxIterations(size_t n_iterations);
+
+            void setComparator(std::function<bool(const std::shared_ptr<path_planner::State>&,
+                    const std::shared_ptr<path_planner::State>&)> cmp);
 
             virtual path_planner::Path search() = 0;
     };
