@@ -6,11 +6,11 @@
 
 namespace path_planner::search {
 
-    void SearchAlgorithm::setInitialState(std::shared_ptr<path_planner::State> initial) {
+    void SearchAlgorithm::setInitialState(const std::shared_ptr<path_planner::State>& initial) {
         this->initialState = initial;
     }
 
-    void SearchAlgorithm::setGoalState(std::shared_ptr<path_planner::State> goal) {
+    void SearchAlgorithm::setGoalState(const std::shared_ptr<path_planner::State>& goal) {
         this->goalState = goal;
     }
 

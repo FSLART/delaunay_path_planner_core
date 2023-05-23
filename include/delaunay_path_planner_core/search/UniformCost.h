@@ -13,6 +13,8 @@ namespace path_planner {
 
         class UniformCost : InformedSearchAlgorithm<path_planner::search::heuristics::ClosestConeFindingHeuristic> {
 
+            public:
+                path_planner::Path search() override;
         };
 
     } // path_planner

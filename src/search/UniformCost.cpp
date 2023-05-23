@@ -6,5 +6,9 @@
 
 namespace path_planner {
     namespace search {
+        path_planner::Path UniformCost::search() {
+
+            // TODO
+        }
     } // path_planner
 } // search
