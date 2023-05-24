@@ -8,9 +8,9 @@
 
 namespace path_planner::search {
 
-    /*
     path_planner::Path AStar::search() {
 
+        /*
         if (this->initialState == nullptr)
             throw std::runtime_error("Initial state not set!");
 
@@ -67,6 +67,6 @@ namespace path_planner::search {
         }
 
         return actionList;
+        */
     }
-     */
 } // path_planner

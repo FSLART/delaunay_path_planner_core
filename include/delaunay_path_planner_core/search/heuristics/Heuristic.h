@@ -10,12 +10,13 @@
 
 namespace path_planner::search::heuristics {
 
+    /*! \brief Abstract heuristic class which computes an heuristic depending on the applied problem and algorithm. */
     class Heuristic {
         public:
             virtual double compute(const std::shared_ptr<path_planner::State>& state1,
                                    const std::shared_ptr<path_planner::State>& state2,
                                    const std::shared_ptr<path_planner::State>& goalState,
-                                   double currentGCost = 0) = 0;
+                                   double currentGCost) = 0;
     };
 
 } // path_planner

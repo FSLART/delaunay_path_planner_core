@@ -20,17 +20,7 @@ namespace path_planner {
                                    const std::shared_ptr<path_planner::State>& state2,
                                    const std::shared_ptr<path_planner::State>& goalState,
                                    double currentGCost = 0) override;
-                    /*!
-                     * @brief Find the closest cone of a given color starting from a state.
-                     * It uses breadth first search to find the closest yellow and blue nodes, and the distance differences
-                     * are used as heuristic.
-                     *
-                     * @param c The color of the cone to search
-                     * @param initialState The initial state of the search
-                     * @return A pointer to the found state
-                     */
-                    std::shared_ptr<path_planner::State> coneFindingSearch(cone_color_t c,
-                                                                           std::shared_ptr<path_planner::State> initialState);
+
                 /*!
                  * \brief Method intended to be called from a thread. Find the closest cone of a given color.
                  *

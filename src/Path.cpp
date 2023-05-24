@@ -36,4 +36,19 @@ namespace path_planner {
         this->states.push_back(s);
         this->cost += cost;
     }
+
+    void Path::prependState(const std::shared_ptr<path_planner::State> &s, float cost) {
+
+        if(this->states.empty()) {
+            this->states.push_front(s);
+            return;
+        }
+
+        if(!s->hasNeighbor(this->states.front())) {
+            throw std::runtime_error("You tried to add a state which is not a successor!");
+        }
+
+        this->states.push_front(s);
+        this->cost += cost;
+    }
 } // path_planner
