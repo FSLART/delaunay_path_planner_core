@@ -4,8 +4,6 @@
 
 #include <delaunay_path_planner_core/PathPlanner.h>
 
-#define MAX_SEARCH_DEPTH 5
-
 namespace path_planner {
 
     std::list<path_planner::Path> PathPlanner::search(const Environment &e) {

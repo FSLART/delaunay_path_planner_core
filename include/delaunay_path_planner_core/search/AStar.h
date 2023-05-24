@@ -12,7 +12,8 @@
 
 namespace path_planner::search {
 
-    class AStar : InformedSearchAlgorithm<path_planner::search::heuristics::AStarHeuristic> {
+    template <typename HeuristicT>
+    class AStar : InformedSearchAlgorithm<HeuristicT> {
 
         public:
             path_planner::Path search() override;
