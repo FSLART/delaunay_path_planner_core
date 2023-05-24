@@ -10,20 +10,20 @@ namespace path_planner {
 
     }
 
-    Point::Point(long int x, long int y) {
+    Point::Point(const long int& x, const long int& y) {
         this->setX(x);
         this->setY(y);
         this->cgalPoint = K::Point_2(x, y);
     }
 
-    Point::Point(long int x, long int y, double theta) {
+    Point::Point(const long int& x, const long int& y, const double& theta) {
         this->setX(x);
         this->setY(y);
         this->setTheta(theta);
         this->cgalPoint = K::Point_2(x, y);
     }
 
-    Point::Point(K::Point_2 p) {
+    Point::Point(const K::Point_2& p) {
         this->setX(p.x());
         this->setY(p.y());
     }
@@ -35,7 +35,7 @@ namespace path_planner {
         return x;
     }
 
-    void Point::setX(long int x) {
+    void Point::setX(const long int& x) {
         this->xSet = true;
         this->x = x;
         this->tryInitCgalPoint(x, this->y);
@@ -48,7 +48,7 @@ namespace path_planner {
         return y;
     }
 
-    void Point::setY(long int y) {
+    void Point::setY(const long int& y) {
         this->ySet = true;
         this->y = y;
         this->tryInitCgalPoint(x, this->y);
@@ -61,7 +61,7 @@ namespace path_planner {
         return theta;
     }
 
-    void Point::setTheta(double theta) {
+    void Point::setTheta(const double& theta) {
         this->thetaSet = true;
         this->theta = theta;
     }
@@ -78,7 +78,7 @@ namespace path_planner {
             std::pow(std::abs(this->y - other.y), 2));
     }
 
-    void Point::tryInitCgalPoint(double x, double y) {
+    void Point::tryInitCgalPoint(const double& x, const double& y) {
         if(this->xSet && this->ySet)
             this->cgalPoint = K::Point_2(x, y);
     }

@@ -31,7 +31,7 @@ namespace path_planner {
             K::Point_2 cgalPoint;
 
             /*! @brief Initialize a CGAL point with a pair of coordinates. */
-            void tryInitCgalPoint(double x, double y);
+            void tryInitCgalPoint(const double& x, const double& y);
 
 
         public:
@@ -42,35 +42,35 @@ namespace path_planner {
              * @param x X value
              * @param y Y value
              * */
-            Point(long int x, long int y);
+            Point(const long int& x, const long int& y);
             /*! @brief Initialize a point with position and yaw angle.
              *
              * @param x X value
              * @param y Y value
              * @param theta Yaw angle
              */
-            Point(long int x, long int y, double theta);
+            Point(const long int& x, const long int& y, const double& theta);
             /*! @brief Initialize a point with a CGAL point.
              *
              * @param p CGAL point.
              */
-            Point(K::Point_2 p);
+            Point(const K::Point_2& p);
 
             /*! @brief Get X value */
             long int getX() const;
 
             /*! @brief Set X value */
-            void setX(long int x);
+            void setX(const long int& x);
 
             /*! @brief Get Y value */
             long int getY() const;
             /*! @brief Set Y value */
-            void setY(long int y);
+            void setY(const long int& y);
 
             /*! @brief Get yaw angle */
             double getTheta() const;
             /*! @brief Set yaw angle */
-            void setTheta(double theta);
+            void setTheta(const double& theta);
 
             /*! @brief Get the Point as a CGAL point */
             K::Point_2 getAsCGALPoint() const;
