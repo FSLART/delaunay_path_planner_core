@@ -10,16 +10,14 @@
 #include <unordered_set>
 #include <unordered_map>
 
-namespace path_planner {
-    namespace search {
+namespace path_planner::search {
 
-        class BreadthFirstSearch : SearchAlgorithm {
+        class BreadthFirstSearch : public SearchAlgorithm {
 
             public:
                 path_planner::Path search() override;
         };
 
-    } // path_planner
-} // search
+    } // search
 
 #endif //DELAUNAY_PATH_PLANNER_CORE_BREADTHFIRSTSEARCH_H

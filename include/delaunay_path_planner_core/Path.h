@@ -29,6 +29,8 @@ namespace path_planner {
              * */
             void addState(const std::shared_ptr<path_planner::State>& s, float cost = 0);
             void prependState(const std::shared_ptr<path_planner::State>& s, float cost = 0);
+
+            std::list<std::shared_ptr<path_planner::State>> getFullPath() const;
     };
 
 } // path_planner

@@ -6,7 +6,8 @@
 #define DELAUNAY_PATH_PLANNER_CORE_PATHFINDINGHEURISTIC_H
 
 #include "Heuristic.h"
-#include "delaunay_path_planner_core/Cone.h"
+#include <delaunay_path_planner_core/Cone.h>
+#include <delaunay_path_planner_core/search/BreadthFirstSearch.h>
 #include <queue>
 #include <thread>
 

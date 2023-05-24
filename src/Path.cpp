@@ -51,4 +51,8 @@ namespace path_planner {
         this->states.push_front(s);
         this->cost += cost;
     }
+
+    std::list<std::shared_ptr<path_planner::State>> Path::getFullPath() const {
+        return this->states;
+    }
 } // path_planner
