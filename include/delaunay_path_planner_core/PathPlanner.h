@@ -7,6 +7,8 @@
 
 #include <delaunay_path_planner_core/Path.h>
 #include <delaunay_path_planner_core/Environment.h>
+#include <delaunay_path_planner_core/search/heuristics/PathFindingHeuristic.h>
+#include <delaunay_path_planner_core/search/AStar.h>
 #include <list>
 
 namespace path_planner {

@@ -10,13 +10,13 @@ namespace path_planner {
 
     }
 
-    Point::Point(const long int& x, const long int& y) {
+    Point::Point(const float& x, const float& y) {
         this->setX(x);
         this->setY(y);
         this->cgalPoint = K::Point_2(x, y);
     }
 
-    Point::Point(const long int& x, const long int& y, const double& theta) {
+    Point::Point(const float& x, const float& y, const double& theta) {
         this->setX(x);
         this->setY(y);
         this->setTheta(theta);
@@ -28,27 +28,27 @@ namespace path_planner {
         this->setY(p.y());
     }
 
-    long int Point::getX() const {
+    float Point::getX() const {
         if(!this->xSet)
             throw std::runtime_error("Point x value not set!");
 
         return x;
     }
 
-    void Point::setX(const long int& x) {
+    void Point::setX(const float& x) {
         this->xSet = true;
         this->x = x;
         this->tryInitCgalPoint(x, this->y);
     }
 
-    long int Point::getY() const {
+    float Point::getY() const {
         if(!this->ySet)
             throw std::runtime_error("Point y value not set!");
 
         return y;
     }
 
-    void Point::setY(const long int& y) {
+    void Point::setY(const float& y) {
         this->ySet = true;
         this->y = y;
         this->tryInitCgalPoint(x, this->y);

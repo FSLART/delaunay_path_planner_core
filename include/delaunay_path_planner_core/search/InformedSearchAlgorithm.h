@@ -10,7 +10,7 @@
 namespace path_planner::search {
 
     template <typename HeuristicT>
-    class InformedSearchAlgorithm : protected SearchAlgorithm {
+    class InformedSearchAlgorithm : public SearchAlgorithm {
 
         protected:
             HeuristicT heuristic;

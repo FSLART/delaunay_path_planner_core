@@ -17,9 +17,9 @@ namespace path_planner {
 
         protected:
             /*! @brief X value */
-            long int x;
+            float x;
             /*! @brief Y value */
-            long int y;
+            float y;
             /*! @brief Yaw angle value */
             double theta;
 
@@ -42,14 +42,14 @@ namespace path_planner {
              * @param x X value
              * @param y Y value
              * */
-            Point(const long int& x, const long int& y);
+            Point(const float& x, const float& y);
             /*! @brief Initialize a point with position and yaw angle.
              *
              * @param x X value
              * @param y Y value
              * @param theta Yaw angle
              */
-            Point(const long int& x, const long int& y, const double& theta);
+            Point(const float& x, const float& y, const double& theta);
             /*! @brief Initialize a point with a CGAL point.
              *
              * @param p CGAL point.
@@ -57,15 +57,15 @@ namespace path_planner {
             Point(const K::Point_2& p);
 
             /*! @brief Get X value */
-            long int getX() const;
+            float getX() const;
 
             /*! @brief Set X value */
-            void setX(const long int& x);
+            void setX(const float& x);
 
             /*! @brief Get Y value */
-            long int getY() const;
+            float getY() const;
             /*! @brief Set Y value */
-            void setY(const long int& y);
+            void setY(const float& y);
 
             /*! @brief Get yaw angle */
             double getTheta() const;

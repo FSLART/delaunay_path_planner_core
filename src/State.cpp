@@ -103,12 +103,4 @@ namespace path_planner {
             return UNKNOWN;
     }
 
-    double State::getYawAngle() const {
-        return yawAngle;
-    }
-
-    void State::setYawAngle(const float &yawAngle) {
-        this->yawAngle = yawAngle;
-    }
-
 } // path_planner

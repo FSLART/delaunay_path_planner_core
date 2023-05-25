@@ -2,6 +2,8 @@
 // Created by carlostojal on 05-05-2023.
 //
 
+#define ESTIMATED_SENSOR_RANGE 10 // estimated sensor range in meters
+
 #include <delaunay_path_planner_core/PathPlanner.h>
 
 namespace path_planner {
@@ -14,17 +16,21 @@ namespace path_planner {
         if(currentState == nullptr)
             throw std::runtime_error("Tried to search on an environment with unknown car state!");
 
-        /* TODO: the goal is an imaginary point in front of the car, as far as the estimated sensor range. Even though the car will not always be on straight lines, curves are not very meaningful in such a reduced horizon
-         * TODO: use A* with the PathFindingHeuristic
-         * */
+        // create a goal state
+        std::shared_ptr<path_planner::State> goalState = std::make_shared<path_planner::State>();
+        double goalX = e.getCarState()->getPosition().getX() + cos(e.getCarState()->getPosition().getTheta()) * ESTIMATED_SENSOR_RANGE;
+        double goalY = e.getCarState()->getPosition().getY() + sin(e.getCarState()->getPosition().getTheta()) * ESTIMATED_SENSOR_RANGE;
+        goalState->setPosition(path_planner::Point(goalX, goalY));
 
-
-
-
-
+        // find the path
+        path_planner::search::AStar astar = path_planner::search::AStar<path_planner::search::heuristics::PathFindingHeuristic>();
+        astar.setInitialState(e.getCarState());
+        astar.setGoalState(goalState);
 
         // free the starting state pointer
         currentState.reset();
+        // free the goal state pointer
+        goalState.reset();
 
         return paths;
     }

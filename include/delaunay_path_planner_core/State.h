@@ -27,8 +27,6 @@ namespace path_planner {
         private:
             /*! @brief The position of the state in the world */
             path_planner::Point position;
-            /*! \brief THe yaw angle of the state on the xOy plane. */
-            double yawAngle = 0;
             /*! @brief The neighbors (states the car is able to transition to) from this state */
             std::set<std::shared_ptr<State>> neighbors;
              /*! @brief Characterization of the state in terms of occupancy */
@@ -46,9 +44,6 @@ namespace path_planner {
             path_planner::Point getPosition() const;
             /*! @brief Set the position of the state in the world */
             void setPosition(path_planner::Point position);
-
-            double getYawAngle() const;
-            void setYawAngle(const float& yawAngle);
 
             /*! @brief Check if a state is present in the neighbor list of this instance */
             bool hasNeighbor(std::shared_ptr<path_planner::State> neighbor);
