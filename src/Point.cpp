@@ -84,11 +84,11 @@ namespace path_planner {
     }
 
     bool Point::operator==(const Point& other) const {
-        return this->x == other.x && this->y == other.y;
+        return ((int) this->x * 100) == ((int) other.x * 100) && ((int) this->y * 100) == ((int) other.y * 100);
     }
 
     bool Point::operator==(const K::Point_2& other) const {
-        return this->getAsCGALPoint() == other;
+        return ((int) this->x * 100) == ((int) other.x() * 100) && ((int) this->y * 100) == ((int) other.y() * 100);
     }
 
 } // path_planner

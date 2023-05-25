@@ -7,6 +7,7 @@
 
 #include <set>
 #include <vector>
+#include <unordered_map>
 #include <memory>
 #include <delaunay_path_planner_core/Cone.h>
 #include <delaunay_path_planner_core/State.h>
@@ -25,16 +26,17 @@ namespace path_planner {
     class Environment {
         private:
             /*! @brief The collection of cones on the environment. */
-            std::vector<path_planner::Cone> cones;
+            std::set<std::shared_ptr<path_planner::State>> cones;
             /*! @brief The current state of the car on the environnment. */
             std::shared_ptr<path_planner::State> carState = nullptr;
+            std::shared_ptr<path_planner::State> goalState = nullptr;
 
         public:
             Environment();
             ~Environment();
 
             /*! @brief Get the cone collection. */
-            std::vector<path_planner::Cone> getCones() const;
+            std::set<std::shared_ptr<path_planner::State>> getCones() const;
 
             /*! @brief Get the car state. */
             std::shared_ptr<path_planner::State> getCarState() const;
@@ -43,7 +45,11 @@ namespace path_planner {
              *
              * @param state State to set.
              */
-            void setCarState(const path_planner::State& state);
+            void setCarState(const std::shared_ptr<path_planner::State>& state);
+            /*! \brief Get the car's goal state. */
+            std::shared_ptr<path_planner::State> getGoalState() const;
+            /*! \brief Set the ca's goal state. */
+            void setGoalState(const std::shared_ptr<path_planner::State>& state);
             /*! @brief Add a cone to the environment.
              *
              * @param cone Cone to add.

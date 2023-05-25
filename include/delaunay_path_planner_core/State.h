@@ -17,6 +17,7 @@ namespace path_planner {
         YELLOW_CONE_OCCUPANCY,
         BLUE_CONE_OCCUPANCY,
         ORANGE_CONE_OCCUPANCY,
+        UNKNOWN_CONE_OCCUPANCY,
         FREE_SPACE
     };
 
