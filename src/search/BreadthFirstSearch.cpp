@@ -26,12 +26,8 @@ namespace path_planner {
                 frontier.pop();
 
                 if(this->cmp(currentState, goalState)) {
-                    std::shared_ptr<path_planner::State> pathIter = currentState;
-                    // add the states to the path
-                    while(pathIter != nullptr) {
-                        path.prependState(pathIter);
-                        pathIter = parent.at(pathIter);
-                    }
+                    path = this->constructPath(parent, currentState);
+                    return path;
                 }
 
                 // explore the first of the frontier
@@ -46,6 +42,8 @@ namespace path_planner {
                 // remove the first of the frontier
                 frontier.pop();
             }
+
+            return path;
         }
     } // path_planner
 } // search

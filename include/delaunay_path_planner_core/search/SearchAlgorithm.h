@@ -66,6 +66,10 @@ namespace path_planner::search {
              * @return The path from the initial state to the goal state of the instance.
              * */
             virtual path_planner::Path search() = 0;
+
+            path_planner::Path constructPath(const std::unordered_map<std::shared_ptr<path_planner::State>,
+                    std::shared_ptr<path_planner::State>>& parent,
+                    std::shared_ptr<path_planner::State> currentState);
     };
 
 } // path_planner

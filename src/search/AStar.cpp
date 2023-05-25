@@ -11,7 +11,43 @@ namespace path_planner::search {
     template <typename HeuristicT>
     path_planner::Path AStar<HeuristicT>::search() {
 
-        // TODO
+        path_planner::Path path;
+        std::shared_ptr<path_planner::State> stateToExplore = this->initialState;
+        std::priority_queue<std::pair<double,std::shared_ptr<path_planner::State>>> frontier;
+        std::unordered_map<std::shared_ptr<path_planner::State>, std::shared_ptr<path_planner::State>> parent;
+        std::unordered_map<std::shared_ptr<path_planner::State>, double> gScores;
+        std::unordered_map<std::shared_ptr<path_planner::State>, double> fScores;
+
+        frontier.push(std::make_pair(0.0, this->initialState));
+        gScores[stateToExplore] = 0.0;
+        fScores[stateToExplore] = this->initialState->getPosition().distanceTo(this->goalState->getPosition()); // f = 0 + h
+
+        while (!frontier.empty()) {
+            std::shared_ptr<path_planner::State> currentState = frontier.top().second;
+            frontier.pop();
+
+            if (this->cmp(currentState, this->goalState)) {
+                // Goal state reached, construct the path
+                path = this->constructPath(parent, currentState, path);
+                return path;
+            }
+
+            for (const auto& child : currentState->getNeighbors()) {
+                // this g score is the current node's g score plus the g cost of the child
+                double tentativeGScore = gScores[currentState] + this->heuristic.compute(currentState, child,
+                                                                                         this->goalState);
+
+                if (gScores.find(child) == gScores.end() || tentativeGScore < gScores[child]) {
+                    parent[child] = currentState;
+                    gScores[child] = tentativeGScore;
+                    fScores[child] = gScores[child] + this->heuristic.compute(child); // f-score based on g-score and heuristic
+
+                    frontier.push(std::make_pair(fScores[child], child));
+                }
+            }
+        }
+
+        return path;
     }
 
     template<typename HeuristicT>

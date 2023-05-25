@@ -27,4 +27,18 @@ namespace path_planner::search {
         this->cmp = cmp;
     }
 
+    path_planner::Path SearchAlgorithm::constructPath(const std::unordered_map<std::shared_ptr<path_planner::State>,
+            std::shared_ptr<path_planner::State>>& parent,
+            std::shared_ptr<path_planner::State> currentState) {
+
+        path_planner::Path path;
+
+        while (currentState != nullptr) {
+            path.prependState(currentState);
+            currentState = parent.at(currentState);
+        }
+
+        return path;
+    }
+
 } // path_planner

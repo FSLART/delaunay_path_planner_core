@@ -22,6 +22,12 @@ namespace path_planner {
         double goalY = e.getCarState()->getPosition().getY() + sin(e.getCarState()->getPosition().getTheta()) * ESTIMATED_SENSOR_RANGE;
         goalState->setPosition(path_planner::Point(goalX, goalY));
 
+        // the state comparator here is pretty standard
+        auto comparator = [](const std::shared_ptr<path_planner::State>& s1,
+                const std::shared_ptr<path_planner::State>& s2) {
+            return s1 == s2;
+        };
+
         // find the path
         path_planner::search::AStar astar = path_planner::search::AStar<path_planner::search::heuristics::PathFindingHeuristic>();
         astar.setInitialState(e.getCarState());
