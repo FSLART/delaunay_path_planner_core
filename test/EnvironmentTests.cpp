@@ -5,6 +5,8 @@
 #include <gtest/gtest.h>
 #include "delaunay_path_planner_core/tests/Misc.h"
 
+#define GOAL_DISTANCE 5
+
 class EnvironmentTests : public ::testing::Test {
 
     protected:
@@ -12,6 +14,7 @@ class EnvironmentTests : public ::testing::Test {
 
         virtual void SetUp() {
             straightSegmentEnvironment = path_planner::tests::Misc::generateStraightSegment();
+            straightSegmentEnvironment.computeGoalInFront(5.0);
         }
 
         virtual void TearDown() {
@@ -22,4 +25,7 @@ class EnvironmentTests : public ::testing::Test {
 TEST_F(EnvironmentTests, createStraightSegmentGraph) {
 
     std::shared_ptr<path_planner::State> startingState = straightSegmentEnvironment.generateGraph();
+
+    // in the end, if the starting state has no neighbors something went wrong
+    ASSERT_GT(startingState->getNeighbors().size(), 0);
 }

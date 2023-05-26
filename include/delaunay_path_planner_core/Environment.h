@@ -62,6 +62,12 @@ namespace path_planner {
              * @return The starting node of the graph (the car state)
              */
             std::shared_ptr<State> generateGraph();
+
+            /*! \brief Set the goal state as a point "distance" metres in front of the car.
+             *
+             * @param distance The distance from the car to the goal to generate.
+             * */
+            void computeGoalInFront(double distance);
     };
 
 } // path_planner

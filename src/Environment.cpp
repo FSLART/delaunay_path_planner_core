@@ -50,38 +50,52 @@ namespace path_planner {
 
     std::shared_ptr<State> Environment::generateGraph() {
 
+        if(this->carState == nullptr)
+            throw std::runtime_error("Car state was not defined!");
+
+        if(this->goalState == nullptr)
+            throw std::runtime_error("Goal state was not defined!");
+
         std::unordered_map<path_planner::Point,std::shared_ptr<path_planner::State>> statesByPosition;
 
         Delaunay dt;
+        Delaunay dtFinal;
 
         // insert the car position into the triangulation
         dt.insert(this->carState->getPosition().getAsCGALPoint());
+        dtFinal.insert(this->carState->getPosition().getAsCGALPoint());
         statesByPosition[this->carState->getPosition()] = this->carState;
 
         // insert the goal position
         dt.insert(this->goalState->getPosition().getAsCGALPoint());
+        dtFinal.insert(this->goalState->getPosition().getAsCGALPoint());
         statesByPosition[this->goalState->getPosition()] = this->goalState;
 
         // insert all cones into the triangulation
         for(auto iter : this->cones) {
             statesByPosition[iter->getPosition()] = iter;
             dt.insert(iter->getPosition().getAsCGALPoint());
+            dtFinal.insert(iter->getPosition().getAsCGALPoint());
         }
 
         auto initial_edges = dt.finite_edges();
 
         // re-triangulate with the midpoints
-        for(auto & pair : initial_edges) {
+        for(auto iter = dt.finite_edges_begin(); iter != dt.finite_edges_end(); ++iter) {
             // get the vertices of this edge
-            K::Point_2 p1 = pair.first->vertex((pair.second + 1) % 3)->point();
-            K::Point_2 p2 = pair.first->vertex((pair.second + 2) % 3)->point();
+            K::Point_2 p1 = iter->first->vertex((iter->second + 1) % 3)->point();
+            K::Point_2 p2 = iter->first->vertex((iter->second + 2) % 3)->point();
+
+            path_planner::Point newStatePosition = path_planner::Point((p1.x() + p2.x()) / 2, (p1.y() + p2.y()) / 2);
+            std::shared_ptr<path_planner::State> newState = std::make_shared<path_planner::State>();
+            statesByPosition[newStatePosition] = newState;
 
             // add the midpoint to the triangulation
-            dt.insert(K::Point_2((p1.x() + p2.x()) / 2, (p1.y() + p2.y()) / 2));
+            dtFinal.insert(K::Point_2((p1.x() + p2.x()) / 2, (p1.y() + p2.y()) / 2));
         }
 
         // create the relations
-        for(auto iter = dt.finite_edges_begin(); iter != dt.finite_edges_end(); iter++) {
+        for(auto iter = dtFinal.finite_edges_begin(); iter != dtFinal.finite_edges_end(); ++iter) {
             // get the vertices of this edge
             K::Point_2 p1 = iter->first->vertex((iter->second + 1) % 3)->point();
             K::Point_2 p2 = iter->first->vertex((iter->second + 2) % 3)->point();
@@ -107,6 +121,26 @@ namespace path_planner {
 
     void Environment::setGoalState(const std::shared_ptr<path_planner::State> &state) {
         this->goalState = state;
+    }
+
+    void Environment::computeGoalInFront(double distance) {
+
+        if(this->carState == nullptr)
+            throw std::runtime_error("Car state not defined, can't compute goal position!");
+
+        // allocate the goal state
+        std::shared_ptr<path_planner::State> goalState = std::make_shared<path_planner::State>();
+
+        // set the position "distance" metres in front of the car
+        path_planner::Point goalPosition = path_planner::Point(this->carState->getPosition().getX() +
+                (distance * cos(this->carState->getPosition().getTheta())),
+                                                               (this->carState->getPosition().getY() +
+                                                                       (distance * sin(this->carState->getPosition().getTheta()))));
+        goalState->setPosition(goalPosition);
+
+        // set the goal state pointer
+        this->goalState = goalState;
+        goalState.reset();
     }
 
 } // path_planner

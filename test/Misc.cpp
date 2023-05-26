@@ -9,7 +9,7 @@ path_planner::Environment path_planner::tests::Misc::generateStraightSegment() {
 
     // initialize car state
     std::shared_ptr<path_planner::State> carState = std::make_shared<path_planner::State>();
-    carState->setPosition(path_planner::Point(0, 0));
+    carState->setPosition(path_planner::Point(0, 0, 0));
 
     env.setCarState(carState);
 
