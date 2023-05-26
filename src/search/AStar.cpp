@@ -3,10 +3,16 @@
 //
 
 #include <delaunay_path_planner_core/search/AStar.h>
+#include "delaunay_path_planner_core/search/heuristics/PathFindingHeuristic.h"
 
 #define MAX_SEARCH_ITERATIONS 200
 
 namespace path_planner::search {
+
+    template<typename HeuristicT>
+    AStar<HeuristicT>::AStar() {
+
+    }
 
     template <typename HeuristicT>
     path_planner::Path AStar<HeuristicT>::search() {
@@ -28,7 +34,7 @@ namespace path_planner::search {
 
             if (this->cmp(currentState, this->goalState)) {
                 // Goal state reached, construct the path
-                path = this->constructPath(parent, currentState, path);
+                path = this->constructPath(parent, currentState);
                 return path;
             }
 
@@ -40,7 +46,7 @@ namespace path_planner::search {
                 if (gScores.find(child) == gScores.end() || tentativeGScore < gScores[child]) {
                     parent[child] = currentState;
                     gScores[child] = tentativeGScore;
-                    fScores[child] = gScores[child] + this->heuristic.compute(child); // f-score based on g-score and heuristic
+                    fScores[child] = gScores[child] + this->heuristic.compute(currentState, child, this->goalState); // f-score based on g-score and heuristic
 
                     frontier.push(std::make_pair(fScores[child], child));
                 }
@@ -50,8 +56,5 @@ namespace path_planner::search {
         return path;
     }
 
-    template<typename HeuristicT>
-    AStar<HeuristicT>::AStar() {
-
-    }
+    template class AStar<path_planner::search::heuristics::PathFindingHeuristic>;
 } // path_planner

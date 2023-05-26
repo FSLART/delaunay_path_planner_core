@@ -10,6 +10,10 @@ namespace path_planner {
         this->color = UNKNOWN;
     }
 
+    Cone::Cone(const float& x, const float& y) : Point(x, y) {
+        this->color = UNKNOWN;
+    }
+
     cone_color_t Cone::getColor() const {
         return color;
     }
