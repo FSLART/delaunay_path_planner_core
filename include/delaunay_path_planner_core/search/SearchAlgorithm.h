@@ -67,9 +67,9 @@ namespace path_planner::search {
              * */
             virtual path_planner::Path search() = 0;
 
-            path_planner::Path constructPath(const std::unordered_map<std::shared_ptr<path_planner::State>,
+            static path_planner::Path constructPath(const std::unordered_map<std::shared_ptr<path_planner::State>,
                     std::shared_ptr<path_planner::State>>& parent,
-                    std::shared_ptr<path_planner::State> currentState);
+                    std::shared_ptr<path_planner::State>& currentState);
     };
 
 } // path_planner

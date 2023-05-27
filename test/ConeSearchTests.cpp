@@ -3,7 +3,9 @@
 //
 
 #include <gtest/gtest.h>
-#include "delaunay_path_planner_core/tests/Misc.h"
+#include <delaunay_path_planner_core/tests/Misc.h>
+#include <delaunay_path_planner_core/State.h>
+#include <delaunay_path_planner_core/search/heuristics/PathFindingHeuristic.h>
 
 class ConeSearchTests : public ::testing::Test {
 
@@ -12,6 +14,8 @@ class ConeSearchTests : public ::testing::Test {
 
         virtual void SetUp() {
             straightSegmentEnvironment = path_planner::tests::Misc::generateStraightSegment();
+            straightSegmentEnvironment.computeGoalInFront(5.0);
+            straightSegmentEnvironment.generateGraph();
         }
 
         virtual void TearDown() {
@@ -21,10 +25,30 @@ class ConeSearchTests : public ::testing::Test {
 
 TEST_F(ConeSearchTests, findClosestYellow) {
 
-    // TODO
+    std::shared_ptr<path_planner::State> closestYellowCone = nullptr;
+    path_planner::search::heuristics::PathFindingHeuristic::findClosestConeRoutine(path_planner::YELLOW_CONE_OCCUPANCY,
+                           straightSegmentEnvironment.getCarState(),
+                           closestYellowCone);
+
+    path_planner::Point expectedPosition(-2, 1);
+
+    if(closestYellowCone == nullptr)
+        FAIL();
+
+    ASSERT_EQ(expectedPosition, closestYellowCone->getPosition());
 }
 
 TEST_F(ConeSearchTests, findClosestBlue) {
 
-    // TODO
+    std::shared_ptr<path_planner::State> closestBlueCone = nullptr;
+    path_planner::search::heuristics::PathFindingHeuristic::findClosestConeRoutine(path_planner::BLUE_CONE_OCCUPANCY,
+                                                                                   straightSegmentEnvironment.getCarState(),
+                                                                                   closestBlueCone);
+
+    path_planner::Point expectedPosition(2, 1);
+
+    if(closestBlueCone == nullptr)
+        FAIL();
+
+    ASSERT_EQ(expectedPosition, closestBlueCone->getPosition());
 }

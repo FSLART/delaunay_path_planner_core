@@ -83,6 +83,8 @@ namespace path_planner {
 
             /*! @brief Compare this Point instance with another by coordinates */
             bool operator==(const Point& other) const;
+
+            std::string _str_();
     };
 
 } // path_planner

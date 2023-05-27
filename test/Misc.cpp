@@ -14,12 +14,12 @@ path_planner::Environment path_planner::tests::Misc::generateStraightSegment() {
     env.setCarState(carState);
 
     // add the cones
-    env.addCone(path_planner::Cone(-2, 1));
-    env.addCone(path_planner::Cone(2, 1));
-    env.addCone(path_planner::Cone(-2, 3));
-    env.addCone(path_planner::Cone(2, 3));
-    env.addCone(path_planner::Cone(-2, 5));
-    env.addCone(path_planner::Cone(2, 5));
+    env.addCone(path_planner::Cone(-2, 1, YELLOW));
+    env.addCone(path_planner::Cone(2, 1, BLUE));
+    env.addCone(path_planner::Cone(-2, 3, YELLOW));
+    env.addCone(path_planner::Cone(2, 3, BLUE));
+    env.addCone(path_planner::Cone(-2, 5, YELLOW));
+    env.addCone(path_planner::Cone(2, 5, BLUE));
 
     return env;
 }

@@ -27,5 +27,5 @@ TEST_F(EnvironmentTests, createStraightSegmentGraph) {
     std::shared_ptr<path_planner::State> startingState = straightSegmentEnvironment.generateGraph();
 
     // in the end, if the starting state has no neighbors something went wrong
-    ASSERT_GT(startingState->getNeighbors().size(), 0);
+    ASSERT_GT(straightSegmentEnvironment.getCarState()->getNeighbors().size(), 0);
 }

@@ -8,17 +8,30 @@ namespace path_planner {
     namespace search {
         namespace heuristics {
 
-            void findClosestConeRoutine(PathFindingHeuristic *instance, cone_color_t c,
-                                        std::shared_ptr<path_planner::State> initialState,
-                                        std::shared_ptr<path_planner::State>* found) {
+            void PathFindingHeuristic::findClosestConeRoutine(occupancy_type_t t,
+                                                                     const std::shared_ptr<path_planner::State>& initialState,
+                                                                     std::shared_ptr<path_planner::State>& found) {
 
+                std::shared_ptr<path_planner::State> dummyState = std::make_shared<path_planner::State>();
+                dummyState->setOccupancy(t);
 
+                // lambda function to compare two states in this search problem
+                auto compareStatesByConeColor = [](const std::shared_ptr<path_planner::State>& s1,
+                                                   const std::shared_ptr<path_planner::State>& s2) {
+                    return s1->getOccupancy() == s2->getOccupancy();
+                };
 
-            }
+                // find the closest cone of each color for this state
+                // use breadth first search
+                BreadthFirstSearch bfs = BreadthFirstSearch();
+                bfs.setComparator(compareStatesByConeColor);
+                bfs.setInitialState(initialState);
 
-            bool compareStatesByConeColor(const std::shared_ptr<path_planner::State>& s1,
-                                          const std::shared_ptr<path_planner::State>& s2) {
-                return s1->getOccupancy() == s2->getOccupancy();
+                // find the closest yellow
+                bfs.setGoalState(dummyState);
+                path_planner::Path path = bfs.search();
+
+                found = path.getFullPath().back();
             }
 
             double PathFindingHeuristic::compute(const std::shared_ptr<path_planner::State>& state1,
@@ -26,35 +39,22 @@ namespace path_planner {
                                                  const std::shared_ptr<path_planner::State>& goalState,
                                                  double currentGCost) {
 
-                // define a dummy yellow cone. the occupancy type is all that matters
-                std::shared_ptr<path_planner::State> dummyYellow = std::make_shared<path_planner::State>();
-                dummyYellow->setOccupancy(YELLOW_CONE_OCCUPANCY);
 
-                // define a dummy blue cone
-                std::shared_ptr<path_planner::State> dummyBlue = std::make_shared<path_planner::State>();
-                dummyBlue->setOccupancy(BLUE_CONE_OCCUPANCY);
+                // start a thread to search the closest yellow
+                std::shared_ptr<path_planner::State> closestYellowCone = nullptr;
+                std::thread yellowFindingThread([state2, &closestYellowCone] { return findClosestConeRoutine(YELLOW_CONE_OCCUPANCY, state2, closestYellowCone); });
 
-                // find the closest cone of each color for this state
-                // use breadth first search
-                BreadthFirstSearch bfs = BreadthFirstSearch();
-                bfs.setComparator(compareStatesByConeColor);
-                bfs.setInitialState(state2);
+                // start a thread to search the closest blue
+                std::shared_ptr<path_planner::State> closestBlueCone = nullptr;
+                std::thread blueFindingThread([state2, &closestBlueCone] { return findClosestConeRoutine(BLUE_CONE_OCCUPANCY, state2, closestBlueCone); });
 
-                // find the closest yellow
-                bfs.setGoalState(dummyYellow);
-                path_planner::Path yellowPath = bfs.search();
-
-                // find the closest blue
-                bfs.setGoalState(dummyBlue);
-                path_planner::Path bluePath = bfs.search();
-
-                // the cones are the last states of the path
-                std::shared_ptr<path_planner::State> yellowCone = yellowPath.getFullPath().back();
-                std::shared_ptr<path_planner::State> blueCone = bluePath.getFullPath().back();
+                // wait for both threads
+                yellowFindingThread.join();
+                blueFindingThread.join();
 
                 // compute the distances
-                double distanceToYellow = yellowCone->getPosition().distanceTo(state1->getPosition());
-                double distanceToBlue = blueCone->getPosition().distanceTo(state1->getPosition());
+                double distanceToYellow = closestYellowCone->getPosition().distanceTo(state1->getPosition());
+                double distanceToBlue = closestBlueCone->getPosition().distanceTo(state1->getPosition());
 
                 return abs(distanceToBlue - distanceToYellow);
             }

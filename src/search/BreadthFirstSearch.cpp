@@ -16,31 +16,39 @@ namespace path_planner {
             // to track parents of the states
             std::unordered_map<std::shared_ptr<path_planner::State>,std::shared_ptr<path_planner::State>> parent;
 
-            frontier.push(this->initialState);
+            std::shared_ptr<path_planner::State> currentState;
+
             visited.insert(this->initialState);
+            frontier.push(this->initialState);
 
             while(!frontier.empty()) {
 
                 // get the next state to explore
-                std::shared_ptr<path_planner::State> currentState = frontier.front();
+                currentState.reset();
+                currentState = frontier.front();
                 frontier.pop();
 
                 if(this->cmp(currentState, goalState)) {
-                    path = this->constructPath(parent, currentState);
+                    path = SearchAlgorithm::constructPath(parent, currentState);
                     return path;
                 }
 
+                /* TODO: solve this issue:
+                 * - Consider child 0x55555562a230 is marked as visited.
+                 * - It is added to the frontier.
+                 * - When it is explored, the "visited" check fails.
+                 */
+
                 // explore the first of the frontier
-                for(const auto& child : frontier.front()->getNeighbors()) {
+                for(const auto& child : currentState->getNeighbors()) {
+                    // this state is not explored
                     if(visited.find(child) == visited.end()) {
                         frontier.push(child);
                         visited.insert(child);
                         parent[child] = currentState;
+                        // std::cout << currentState.get() << " has child " << child.get() << "(explored)" << std::endl;
                     }
                 }
-
-                // remove the first of the frontier
-                frontier.pop();
             }
 
             return path;

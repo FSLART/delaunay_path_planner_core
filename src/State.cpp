@@ -8,13 +8,14 @@ namespace path_planner {
 
     State::State() {
         this->position = path_planner::Point();
+        this->neighbors = std::set<std::shared_ptr<path_planner::State>>();
     }
 
-    State::State(const State &other) {
+    State::State(const State &other) : State() {
         this->position = other.position;
     }
 
-    State::State(const Point &point) {
+    State::State(const Point &point) : State() {
         this->position = point;
     }
 

@@ -24,18 +24,24 @@ namespace path_planner::search {
 
     void SearchAlgorithm::setComparator(std::function<bool(const std::shared_ptr<path_planner::State> &,
                                                            const std::shared_ptr<path_planner::State> &)> cmp) {
-        this->cmp = cmp;
+        this->cmp = std::move(cmp);
     }
 
     path_planner::Path SearchAlgorithm::constructPath(const std::unordered_map<std::shared_ptr<path_planner::State>,
             std::shared_ptr<path_planner::State>>& parent,
-            std::shared_ptr<path_planner::State> currentState) {
+            std::shared_ptr<path_planner::State>& currentState) {
 
         path_planner::Path path;
 
-        while (currentState != nullptr) {
-            path.prependState(currentState);
-            currentState = parent.at(currentState);
+        std::shared_ptr<path_planner::State> iter = currentState;
+
+        while (iter != nullptr) {
+            // std::cout << iter.get() << "'s parent is " << parent.at(iter) << std::endl;
+            path.prependState(iter);
+            if(!parent.contains(iter))
+                iter = nullptr;
+            else
+                iter = parent.at(iter);
         }
 
         return path;

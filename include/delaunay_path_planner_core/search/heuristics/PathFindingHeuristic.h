@@ -30,10 +30,9 @@ namespace path_planner {
                  * @param initialState The initial state of the search.
                  * @return A pointer to the found state.
                  */
-                friend void findClosestConeRoutine(PathFindingHeuristic *instance,
-                                                   cone_color_t c,
-                                                   std::shared_ptr<path_planner::State> initialState,
-                                                    std::shared_ptr<path_planner::State>* found);
+                    static void findClosestConeRoutine(occupancy_type_t t,
+                                                       const std::shared_ptr<path_planner::State>& initialState,
+                                                       std::shared_ptr<path_planner::State>& found);
             };
 
         } // path_planner

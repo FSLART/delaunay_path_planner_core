@@ -28,6 +28,7 @@ namespace path_planner {
         public:
             Cone();
             Cone(const float& x, const float& y);
+            Cone(const float& x, const float& y, const cone_color_t& c);
 
             /*!
              * Get the cone color.
