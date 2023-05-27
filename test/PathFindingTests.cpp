@@ -31,7 +31,7 @@ TEST_F(PathFindingTests, curvedTrackSegmentPlanning) {
     // TODO: test on a curve
 }
 
-TEST_F(GeometricTests, inconsistentTrackSegmentPlanning) {
+TEST_F(PathFindingTests, inconsistentTrackSegmentPlanning) {
 
     // TODO: test on a segment with mis-colored cones
 }
