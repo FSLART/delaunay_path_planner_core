@@ -81,10 +81,12 @@ namespace path_planner {
             /*! @brief Compare this Point instance with a CGAL point by coordinates */
             bool operator==(const K::Point_2& other) const;
 
+            bool operator!=(const K::Point_2& other) const;
+
             /*! @brief Compare this Point instance with another by coordinates */
             bool operator==(const Point& other) const;
 
-            std::string _str_();
+            bool operator!=(const Point& other) const;
     };
 
 } // path_planner

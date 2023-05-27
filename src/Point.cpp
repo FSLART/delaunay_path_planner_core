@@ -87,8 +87,16 @@ namespace path_planner {
         return ((int) this->x * 100) == ((int) other.x * 100) && ((int) this->y * 100) == ((int) other.y * 100);
     }
 
+    bool Point::operator!=(const Point& other) const {
+        return !(*this == other);
+    }
+
     bool Point::operator==(const K::Point_2& other) const {
         return ((int) this->x * 100) == ((int) other.x() * 100) && ((int) this->y * 100) == ((int) other.y() * 100);
+    }
+
+    bool Point::operator!=(const K::Point_2& other) const {
+        return !(*this == other);
     }
 
 } // path_planner

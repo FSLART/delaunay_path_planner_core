@@ -3,7 +3,7 @@
 //
 
 #include <gtest/gtest.h>
-#include "delaunay_path_planner_core/tests/Misc.h"
+#include <delaunay_path_planner_core/tests/Misc.h>
 
 #define GOAL_DISTANCE 5
 
@@ -14,7 +14,7 @@ class EnvironmentTests : public ::testing::Test {
 
         virtual void SetUp() {
             straightSegmentEnvironment = path_planner::tests::Misc::generateStraightSegment();
-            straightSegmentEnvironment.computeGoalInFront(5.0);
+            straightSegmentEnvironment.computeGoalInFront(GOAL_DISTANCE);
         }
 
         virtual void TearDown() {

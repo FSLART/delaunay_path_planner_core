@@ -16,7 +16,7 @@ add_library(delaunay_path_planner_core SHARED src/Point.cpp src/State.cpp src/En
         src/search/heuristics/ClosestConeFindingHeuristic.cpp src/search/BreadthFirstSearch.cpp )
 target_link_libraries(delaunay_path_planner_core ${CGAL_LIBRARIES})
 
-add_executable(test test/Misc.cpp test/ConeSearchTests.cpp test/EnvironmentTests.cpp)
+add_executable(test test/Misc.cpp test/ConeSearchTests.cpp test/EnvironmentTests.cpp test/GeometricTests.cpp)
 target_link_libraries(test delaunay_path_planner_core gtest gtest_main)
 
 install(TARGETS delaunay_path_planner_core LIBRARY DESTINATION /usr/lib/delaunay_path_planner_core)
