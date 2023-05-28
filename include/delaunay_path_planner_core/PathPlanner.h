@@ -16,6 +16,7 @@ namespace path_planner {
     /*! @brief This class offers path planning functionalities.
      */
     class PathPlanner {
+        public:
 
         /*! @brief Search a list of potential paths on the environment.
          *
@@ -23,7 +24,7 @@ namespace path_planner {
          *
          * @return The list of potential paths on the given environment.
          * */
-        static std::list<path_planner::Path> search(const Environment& e);
+            static path_planner::Path search(const Environment& e);
 
     };
 
