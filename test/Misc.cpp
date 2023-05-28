@@ -3,6 +3,8 @@
 //
 #include "delaunay_path_planner_core/tests/Misc.h"
 
+#define GOAL_DISTANCE 5.0
+
 path_planner::Environment path_planner::tests::Misc::generateStraightSegment() {
     // create environment instance
     path_planner::Environment env = path_planner::Environment();
@@ -12,6 +14,7 @@ path_planner::Environment path_planner::tests::Misc::generateStraightSegment() {
     carState->setPosition(path_planner::Point(0, 0, 0));
 
     env.setCarState(carState);
+    env.computeGoalInFront(GOAL_DISTANCE);
 
     // add the cones
     env.addCone(path_planner::Cone(-2, 1, YELLOW));
