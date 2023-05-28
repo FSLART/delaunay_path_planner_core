@@ -31,6 +31,9 @@ namespace path_planner {
             void prependState(const std::shared_ptr<path_planner::State>& s, float cost = 0);
 
             std::list<std::shared_ptr<path_planner::State>> getFullPath() const;
+
+            bool operator==(const path_planner::Path& other) const;
+            bool operator!=(const path_planner::Path& other) const;
     };
 
 } // path_planner

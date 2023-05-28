@@ -55,4 +55,25 @@ namespace path_planner {
     std::list<std::shared_ptr<path_planner::State>> Path::getFullPath() const {
         return this->states;
     }
+
+    bool Path::operator==(const Path &other) const {
+
+        // compare length
+        if(this->getFullPath().size() != other.getFullPath().size())
+            return false;
+
+        // compare every state position in order
+        auto otherIter = other.states.begin();
+        for(auto & state : this->states) {
+            if(state->getPosition() != otherIter->get()->getPosition())
+                return false;
+            ++otherIter;
+        }
+
+        return true;
+    }
+
+    bool Path::operator!=(const Path &other) const {
+        return !(*this == other);
+    }
 } // path_planner
