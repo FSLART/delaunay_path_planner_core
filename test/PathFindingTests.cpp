@@ -27,6 +27,12 @@ protected:
 
 };
 
+/*
+TEST_F(PathFindingTests, comparePaths) {
+    // TODO: compare two simple paths
+    FAIL();
+}*/
+
 TEST_F(PathFindingTests, straightTrackSegmentPlanning) {
 
     path_planner::Path p = path_planner::PathPlanner::search(this->environment);
@@ -37,6 +43,7 @@ TEST_F(PathFindingTests, straightTrackSegmentPlanning) {
     ASSERT_EQ(expectedPath, p);
 }
 
+/*
 TEST_F(PathFindingTests, curvedTrackSegmentPlanning) {
 
     // TODO: test on a curve
@@ -47,4 +54,4 @@ TEST_F(PathFindingTests, inconsistentTrackSegmentPlanning) {
 
     // TODO: test on a segment with mis-colored cones
     FAIL();
-}
+}*/

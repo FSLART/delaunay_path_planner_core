@@ -10,9 +10,7 @@
 namespace path_planner::search {
 
     template<typename HeuristicT>
-    AStar<HeuristicT>::AStar() {
-
-    }
+    AStar<HeuristicT>::AStar() = default;
 
     template <typename HeuristicT>
     path_planner::Path AStar<HeuristicT>::search() {
@@ -48,7 +46,7 @@ namespace path_planner::search {
                     gScores[child] = tentativeGScore;
                     fScores[child] = gScores[child] + this->heuristic.compute(currentState, child, this->goalState); // f-score based on g-score and heuristic
 
-                    frontier.push(std::make_pair(fScores[child], child));
+                    frontier.emplace(fScores[child], child);
                 }
             }
         }

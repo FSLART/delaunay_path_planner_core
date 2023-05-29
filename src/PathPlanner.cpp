@@ -31,6 +31,7 @@ namespace path_planner {
         astar.setInitialState(currentState);
         astar.setGoalState(goalState);
 
+        // TODO: causes bad_function_call
         path = astar.search();
 
         // free the starting state pointer
