@@ -13,6 +13,7 @@ namespace path_planner::tests {
         public:
             static path_planner::Environment generateStraightSegment();
             static path_planner::Environment generateCurvedSegment();
+            static path_planner::Environment generateInconsistentSegment();
     };
 }
 // TODO: create straight track environment
