@@ -44,8 +44,7 @@ TEST_F(EnvironmentTests, createTriangleGraph) {
 
     // assert the starting state's neighbors are these 2 cones
     for(auto & n : startingState->getNeighbors())
-        ASSERT_TRUE(n->getPosition() == path_planner::Point(-1.5, 1.5) || n->getPosition() == path_planner::Point(1.5, 1.5)
-        || n->getPosition() == path_planner::Point(0,3));
+        ASSERT_TRUE(n->getPosition() == path_planner::Point(-3, 3) || n->getPosition() == path_planner::Point(3, 3));
 
     startingState.reset();
     goalState.reset();
