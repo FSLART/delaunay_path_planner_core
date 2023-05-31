@@ -15,6 +15,9 @@ namespace path_planner::search {
     template <typename HeuristicT>
     path_planner::Path AStar<HeuristicT>::search() {
 
+        if(this->cmp == nullptr)
+            throw std::runtime_error("State comparison criteria was not set!");
+
         path_planner::Path path;
         std::shared_ptr<path_planner::State> stateToExplore = this->initialState;
         std::priority_queue<std::pair<double,std::shared_ptr<path_planner::State>>> frontier;

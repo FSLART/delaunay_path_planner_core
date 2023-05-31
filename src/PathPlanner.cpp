@@ -30,8 +30,8 @@ namespace path_planner {
         path_planner::search::AStar astar = path_planner::search::AStar<path_planner::search::heuristics::PathFindingHeuristic>();
         astar.setInitialState(currentState);
         astar.setGoalState(goalState);
+        astar.setComparator(comparator);
 
-        // TODO: causes bad_function_call
         path = astar.search();
 
         // free the starting state pointer
