@@ -27,6 +27,28 @@ path_planner::Environment path_planner::tests::Misc::generateStraightSegment() {
     return env;
 }
 
+path_planner::Environment path_planner::tests::Misc::generateInconsistentSegment() {
+    // create environment instance
+    path_planner::Environment env = path_planner::Environment();
+
+    // initialize car state
+    std::shared_ptr<path_planner::State> carState = std::make_shared<path_planner::State>();
+    carState->setPosition(path_planner::Point(0, 0, 0));
+
+    env.setCarState(carState);
+    env.computeGoalInFront(GOAL_DISTANCE);
+
+    // add the cones
+    env.addCone(path_planner::Cone(-2, 1, YELLOW));
+    env.addCone(path_planner::Cone(2, 1, YELLOW)); // this cone is wrong
+    env.addCone(path_planner::Cone(-2, 3, BLUE));
+    env.addCone(path_planner::Cone(2, 3, BLUE)); // this cone is wrong
+    env.addCone(path_planner::Cone(-2, 5, YELLOW));
+    env.addCone(path_planner::Cone(2, 5, BLUE));
+
+    return env;
+}
+
 path_planner::Environment path_planner::tests::Misc::generateCurvedSegment() {
     // TODO
     return path_planner::Environment();
