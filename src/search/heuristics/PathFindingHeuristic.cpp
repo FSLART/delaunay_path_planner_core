@@ -40,21 +40,35 @@ namespace path_planner {
                                                  double currentGCost) {
 
 
-                // start a thread to search the closest yellow
+                std::vector<std::thread> threads = std::vector<std::thread>();
+
                 std::shared_ptr<path_planner::State> closestYellowCone = nullptr;
-                std::thread yellowFindingThread([state2, &closestYellowCone] { return findClosestConeRoutine(YELLOW_CONE_OCCUPANCY, state2, closestYellowCone); });
 
-                // start a thread to search the closest blue
+                if(state2->getOccupancy() == YELLOW_CONE_OCCUPANCY) {
+                    closestYellowCone = state2;
+                } else { // start a thread to search the closest yellow
+                    threads.emplace_back(findClosestConeRoutine, YELLOW_CONE_OCCUPANCY, std::ref(state2),
+                                         std::ref(closestYellowCone));
+                }
+
+
                 std::shared_ptr<path_planner::State> closestBlueCone = nullptr;
-                std::thread blueFindingThread([state2, &closestBlueCone] { return findClosestConeRoutine(BLUE_CONE_OCCUPANCY, state2, closestBlueCone); });
 
-                // wait for both threads
-                yellowFindingThread.join();
-                blueFindingThread.join();
+                if(state2->getOccupancy() == BLUE_CONE_OCCUPANCY) {
+                    closestBlueCone = state2;
+                } else { // start a thread to search the closest blue
+                    threads.emplace_back(findClosestConeRoutine, BLUE_CONE_OCCUPANCY, std::ref(state2),
+                                         std::ref(closestBlueCone));
+                }
+
+                for(auto & t : threads) {
+                    if(t.joinable())
+                        t.join();
+                }
 
                 // compute the distances
-                double distanceToYellow = closestYellowCone->getPosition().distanceTo(state1->getPosition());
-                double distanceToBlue = closestBlueCone->getPosition().distanceTo(state1->getPosition());
+                double distanceToYellow = closestYellowCone->getPosition().distanceTo(state2->getPosition());
+                double distanceToBlue = closestBlueCone->getPosition().distanceTo(state2->getPosition());
 
                 return abs(distanceToBlue - distanceToYellow);
             }

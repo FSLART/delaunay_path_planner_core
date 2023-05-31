@@ -99,4 +99,15 @@ namespace path_planner {
         return !(*this == other);
     }
 
+    std::string Point::_str_() {
+        std::string result = "(";
+
+        result += std::to_string(this->x);
+        result += ", ";
+        result += std::to_string(this->y);
+        result += ")";
+
+        return result;
+    }
+
 } // path_planner

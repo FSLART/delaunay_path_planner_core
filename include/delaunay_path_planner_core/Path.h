@@ -32,6 +32,9 @@ namespace path_planner {
 
             std::list<std::shared_ptr<path_planner::State>> getFullPath() const;
 
+            /*! \brief Get a string representation of this instance. */
+            std::string _str_();
+
             bool operator==(const path_planner::Path& other) const;
             bool operator!=(const path_planner::Path& other) const;
     };

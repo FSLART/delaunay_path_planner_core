@@ -76,4 +76,13 @@ namespace path_planner {
     bool Path::operator!=(const Path &other) const {
         return !(*this == other);
     }
+
+    std::string Path::_str_() {
+        std::string result;
+
+        for(auto & s : this->states) {
+            result += "-> " + s->getPosition()._str_();
+        }
+        return result;
+    }
 } // path_planner

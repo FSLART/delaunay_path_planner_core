@@ -78,6 +78,9 @@ namespace path_planner {
             /*! @brief Compute the distance from this point instance to another */
             double distanceTo(const Point& other);
 
+            /*! \brief Get a string representation of this instance. */
+            std::string _str_();
+
             /*! @brief Compare this Point instance with a CGAL point by coordinates */
             bool operator==(const K::Point_2& other) const;
 

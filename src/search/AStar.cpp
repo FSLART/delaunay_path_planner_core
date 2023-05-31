@@ -19,15 +19,19 @@ namespace path_planner::search {
             throw std::runtime_error("State comparison criteria was not set!");
 
         path_planner::Path path;
-        std::shared_ptr<path_planner::State> stateToExplore = this->initialState;
-        std::priority_queue<std::pair<double,std::shared_ptr<path_planner::State>>> frontier;
+        // Create the priority queue with a lambda comparator
+        std::priority_queue<std::pair<double, std::shared_ptr<path_planner::State>>,
+                std::vector<std::pair<double, std::shared_ptr<path_planner::State>>>,
+                decltype([](const auto& a, const auto& b) {
+                    return a.first > b.first; // Compare by the first element (cost)
+                })> frontier;
         std::unordered_map<std::shared_ptr<path_planner::State>, std::shared_ptr<path_planner::State>> parent;
         std::unordered_map<std::shared_ptr<path_planner::State>, double> gScores;
         std::unordered_map<std::shared_ptr<path_planner::State>, double> fScores;
 
         frontier.push(std::make_pair(0.0, this->initialState));
-        gScores[stateToExplore] = 0.0;
-        fScores[stateToExplore] = this->initialState->getPosition().distanceTo(this->goalState->getPosition()); // f = 0 + h
+        gScores[this->initialState] = 0.0;
+        fScores[this->initialState] = this->initialState->getPosition().distanceTo(this->goalState->getPosition()); // f = 0 + h
 
         while (!frontier.empty()) {
             std::shared_ptr<path_planner::State> currentState = frontier.top().second;
@@ -47,14 +51,13 @@ namespace path_planner::search {
                 if (gScores.find(child) == gScores.end() || tentativeGScore < gScores[child]) {
                     parent[child] = currentState;
                     gScores[child] = tentativeGScore;
-                    fScores[child] = gScores[child] + this->heuristic.compute(currentState, child, this->goalState); // f-score based on g-score and heuristic
-
+                    fScores[child] = tentativeGScore + child->getPosition().distanceTo(this->goalState->getPosition());
                     frontier.emplace(fScores[child], child);
                 }
             }
         }
 
-        return path;
+        throw std::runtime_error("No path found!");
     }
 
     template class AStar<path_planner::search::heuristics::PathFindingHeuristic>;
