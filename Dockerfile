@@ -10,6 +10,14 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt update
 RUN apt install git build-essential cmake libcgal-dev -y
 
+# install lart_common
+WORKDIR /usr/src
+RUN git clone https://github.com/FSIPLEIRIA/lart_common.git
+WORKDIR /usr/src/lart_common
+RUN ./scripts/build.sh
+
+WORKDIR /usr/src/delaunay_path_planner_core
+
 # clone gtest
 RUN mkdir lib
 WORKDIR /usr/src/delaunay_path_planner_core/lib

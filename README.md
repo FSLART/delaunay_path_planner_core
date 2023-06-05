@@ -5,6 +5,7 @@ This is the core library, so the only thing you can execute are the tests.
 
 ## Requirements
 - CGAL
+- [lart_common](https://github.com/FSIPLEIRIA/lart_common) - installation instructions on the repository
 
 ## Setup
 
