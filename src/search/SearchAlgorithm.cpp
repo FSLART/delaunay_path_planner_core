@@ -6,11 +6,11 @@
 
 namespace path_planner::search {
 
-    void SearchAlgorithm::setInitialState(const std::shared_ptr<path_planner::State>& initial) {
+    void SearchAlgorithm::setInitialState(const std::shared_ptr<lart_common::State>& initial) {
         this->initialState = initial;
     }
 
-    void SearchAlgorithm::setGoalState(const std::shared_ptr<path_planner::State>& goal) {
+    void SearchAlgorithm::setGoalState(const std::shared_ptr<lart_common::State>& goal) {
         this->goalState = goal;
     }
 
@@ -22,18 +22,18 @@ namespace path_planner::search {
         this->maxIterations = n_iterations;
     }
 
-    void SearchAlgorithm::setComparator(std::function<bool(const std::shared_ptr<path_planner::State> &,
-                                                           const std::shared_ptr<path_planner::State> &)> cmp) {
+    void SearchAlgorithm::setComparator(std::function<bool(const std::shared_ptr<lart_common::State> &,
+                                                           const std::shared_ptr<lart_common::State> &)> cmp) {
         this->cmp = std::move(cmp);
     }
 
-    path_planner::Path SearchAlgorithm::constructPath(const std::unordered_map<std::shared_ptr<path_planner::State>,
-            std::shared_ptr<path_planner::State>>& parent,
-            std::shared_ptr<path_planner::State>& currentState) {
+    lart_common::Path SearchAlgorithm::constructPath(const std::unordered_map<std::shared_ptr<lart_common::State>,
+            std::shared_ptr<lart_common::State>>& parent,
+            std::shared_ptr<lart_common::State>& currentState) {
 
-        path_planner::Path path;
+        lart_common::Path path;
 
-        std::shared_ptr<path_planner::State> iter = currentState;
+        std::shared_ptr<lart_common::State> iter = currentState;
 
         while (iter != nullptr) {
             // std::cout << iter.get() << "'s parent is " << parent.at(iter) << std::endl;

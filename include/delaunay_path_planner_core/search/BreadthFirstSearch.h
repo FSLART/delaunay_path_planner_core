@@ -15,7 +15,7 @@ namespace path_planner::search {
         class BreadthFirstSearch : public SearchAlgorithm {
 
             public:
-                path_planner::Path search() override;
+                lart_common::Path search() override;
         };
 
     } // search

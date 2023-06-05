@@ -8,16 +8,16 @@ namespace path_planner {
     namespace search {
         namespace heuristics {
 
-            void PathFindingHeuristic::findClosestConeRoutine(occupancy_type_t t,
-                                                                     const std::shared_ptr<path_planner::State>& initialState,
-                                                                     std::shared_ptr<path_planner::State>& found) {
+            void PathFindingHeuristic::findClosestConeRoutine(lart_common::occupancy_type_t t,
+                                                                     const std::shared_ptr<lart_common::State>& initialState,
+                                                                     std::shared_ptr<lart_common::State>& found) {
 
-                std::shared_ptr<path_planner::State> dummyState = std::make_shared<path_planner::State>();
+                std::shared_ptr<lart_common::State> dummyState = std::make_shared<lart_common::State>();
                 dummyState->setOccupancy(t);
 
                 // lambda function to compare two states in this search problem
-                auto compareStatesByConeColor = [](const std::shared_ptr<path_planner::State>& s1,
-                                                   const std::shared_ptr<path_planner::State>& s2) {
+                auto compareStatesByConeColor = [](const std::shared_ptr<lart_common::State>& s1,
+                                                   const std::shared_ptr<lart_common::State>& s2) {
                     return s1->getOccupancy() == s2->getOccupancy();
                 };
 
@@ -29,35 +29,35 @@ namespace path_planner {
 
                 // find the closest yellow
                 bfs.setGoalState(dummyState);
-                path_planner::Path path = bfs.search();
+                lart_common::Path path = bfs.search();
 
                 found = path.getFullPath().back();
             }
 
-            double PathFindingHeuristic::compute(const std::shared_ptr<path_planner::State>& state1,
-                                                 const std::shared_ptr<path_planner::State>& state2,
-                                                 const std::shared_ptr<path_planner::State>& goalState,
+            double PathFindingHeuristic::compute(const std::shared_ptr<lart_common::State>& state1,
+                                                 const std::shared_ptr<lart_common::State>& state2,
+                                                 const std::shared_ptr<lart_common::State>& goalState,
                                                  double currentGCost) {
 
 
                 std::vector<std::thread> threads = std::vector<std::thread>();
 
-                std::shared_ptr<path_planner::State> closestYellowCone = nullptr;
+                std::shared_ptr<lart_common::State> closestYellowCone = nullptr;
 
-                if(state2->getOccupancy() == YELLOW_CONE_OCCUPANCY) {
+                if(state2->getOccupancy() == lart_common::YELLOW_CONE_OCCUPANCY) {
                     closestYellowCone = state2;
                 } else { // start a thread to search the closest yellow
-                    threads.emplace_back(findClosestConeRoutine, YELLOW_CONE_OCCUPANCY, std::ref(state2),
+                    threads.emplace_back(findClosestConeRoutine, lart_common::YELLOW_CONE_OCCUPANCY, std::ref(state2),
                                          std::ref(closestYellowCone));
                 }
 
 
-                std::shared_ptr<path_planner::State> closestBlueCone = nullptr;
+                std::shared_ptr<lart_common::State> closestBlueCone = nullptr;
 
-                if(state2->getOccupancy() == BLUE_CONE_OCCUPANCY) {
+                if(state2->getOccupancy() == lart_common::BLUE_CONE_OCCUPANCY) {
                     closestBlueCone = state2;
                 } else { // start a thread to search the closest blue
-                    threads.emplace_back(findClosestConeRoutine, BLUE_CONE_OCCUPANCY, std::ref(state2),
+                    threads.emplace_back(findClosestConeRoutine, lart_common::BLUE_CONE_OCCUPANCY, std::ref(state2),
                                          std::ref(closestBlueCone));
                 }
 

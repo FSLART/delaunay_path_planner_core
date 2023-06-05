@@ -6,7 +6,7 @@
 #define DELAUNAY_PATH_PLANNER_CORE_PATHFINDINGHEURISTIC_H
 
 #include "Heuristic.h"
-#include <delaunay_path_planner_core/Cone.h>
+#include <lart_common/Cone.h>
 #include <delaunay_path_planner_core/search/BreadthFirstSearch.h>
 #include <queue>
 #include <thread>
@@ -17,9 +17,9 @@ namespace path_planner {
 
             class PathFindingHeuristic : Heuristic {
                 public:
-                    double compute(const std::shared_ptr<path_planner::State>& state1,
-                                   const std::shared_ptr<path_planner::State>& state2,
-                                   const std::shared_ptr<path_planner::State>& goalState,
+                    double compute(const std::shared_ptr<lart_common::State>& state1,
+                                   const std::shared_ptr<lart_common::State>& state2,
+                                   const std::shared_ptr<lart_common::State>& goalState,
                                    double currentGCost = 0) override;
 
                 /*!
@@ -30,9 +30,9 @@ namespace path_planner {
                  * @param initialState The initial state of the search.
                  * @return A pointer to the found state.
                  */
-                    static void findClosestConeRoutine(occupancy_type_t t,
-                                                       const std::shared_ptr<path_planner::State>& initialState,
-                                                       std::shared_ptr<path_planner::State>& found);
+                    static void findClosestConeRoutine(lart_common::occupancy_type_t t,
+                                                       const std::shared_ptr<lart_common::State>& initialState,
+                                                       std::shared_ptr<lart_common::State>& found);
             };
 
         } // path_planner

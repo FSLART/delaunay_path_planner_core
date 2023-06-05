@@ -5,7 +5,7 @@
 #ifndef DELAUNAY_PATH_PLANNER_CORE_PATHPLANNER_H
 #define DELAUNAY_PATH_PLANNER_CORE_PATHPLANNER_H
 
-#include <delaunay_path_planner_core/Path.h>
+#include <lart_common/Path.h>
 #include <delaunay_path_planner_core/Environment.h>
 #include <delaunay_path_planner_core/search/heuristics/PathFindingHeuristic.h>
 #include <delaunay_path_planner_core/search/AStar.h>
@@ -24,7 +24,7 @@ namespace path_planner {
          *
          * @return The list of potential paths on the given environment.
          * */
-            static path_planner::Path search(const Environment& e);
+            static lart_common::Path search(const Environment& e);
 
     };
 

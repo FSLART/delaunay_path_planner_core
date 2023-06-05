@@ -7,7 +7,7 @@
 namespace path_planner {
 
     Environment::Environment() {
-        this->cones = std::set<std::shared_ptr<path_planner::State>>();
+        this->cones = std::set<std::shared_ptr<lart_common::State>>();
     }
 
     Environment::~Environment() {
@@ -15,40 +15,40 @@ namespace path_planner {
         this->carState.reset();
     }
 
-    std::set<std::shared_ptr<path_planner::State>> Environment::getCones() const {
+    std::set<std::shared_ptr<lart_common::State>> Environment::getCones() const {
         return this->cones;
     }
 
-    std::shared_ptr<path_planner::State> Environment::getCarState() const {
+    std::shared_ptr<lart_common::State> Environment::getCarState() const {
         return this->carState;
     }
 
-    void Environment::setCarState(const std::shared_ptr<path_planner::State>& state) {
+    void Environment::setCarState(const std::shared_ptr<lart_common::State>& state) {
         this->carState = state;
-        this->carState->setOccupancy(CAR_OCCUPANCY);
+        this->carState->setOccupancy(lart_common::CAR_OCCUPANCY);
     }
 
-    void Environment::addCone(const path_planner::Cone& cone) {
-        std::shared_ptr<path_planner::State> coneState = std::make_shared<path_planner::State>();
+    void Environment::addCone(const lart_common::Cone& cone) {
+        std::shared_ptr<lart_common::State> coneState = std::make_shared<lart_common::State>();
         coneState->setPosition(cone);
         switch (cone.getColor()) {
-            case BLUE:
-                coneState->setOccupancy(BLUE_CONE_OCCUPANCY);
+            case lart_common::BLUE:
+                coneState->setOccupancy(lart_common::BLUE_CONE_OCCUPANCY);
                 break;
-            case YELLOW:
-                coneState->setOccupancy(YELLOW_CONE_OCCUPANCY);
+            case lart_common::YELLOW:
+                coneState->setOccupancy(lart_common::YELLOW_CONE_OCCUPANCY);
                 break;
-            case ORANGE:
-                coneState->setOccupancy(ORANGE_CONE_OCCUPANCY);
+            case lart_common::ORANGE:
+                coneState->setOccupancy(lart_common::ORANGE_CONE_OCCUPANCY);
                 break;
-            case UNKNOWN:
-                coneState->setOccupancy(UNKNOWN_CONE_OCCUPANCY);
+            case lart_common::UNKNOWN:
+                coneState->setOccupancy(lart_common::UNKNOWN_CONE_OCCUPANCY);
                 break;
         }
         this->cones.insert(coneState);
     }
 
-    std::shared_ptr<State> Environment::generateGraph() {
+    std::shared_ptr<lart_common::State> Environment::generateGraph() {
 
         if(this->carState == nullptr)
             throw std::runtime_error("Car state was not defined!");
@@ -56,7 +56,7 @@ namespace path_planner {
         if(this->goalState == nullptr)
             throw std::runtime_error("Goal state was not defined!");
 
-        std::unordered_map<path_planner::Point,std::shared_ptr<path_planner::State>> statesByPosition;
+        std::unordered_map<lart_common::Point,std::shared_ptr<lart_common::State>> statesByPosition;
 
         Delaunay dt;
         Delaunay dtWithMidpoints;
@@ -79,8 +79,8 @@ namespace path_planner {
             double newX = (p1.x() + p2.x()) / 2;
             double newY = (p1.y() + p2.y()) / 2;
 
-            path_planner::Point newStatePosition = path_planner::Point(newX, newY);
-            std::shared_ptr<path_planner::State> newState = std::make_shared<path_planner::State>(newStatePosition);
+            lart_common::Point newStatePosition = lart_common::Point(newX, newY);
+            std::shared_ptr<lart_common::State> newState = std::make_shared<lart_common::State>(newStatePosition);
             statesByPosition[newStatePosition] = newState;
 
             // add the midpoint to the triangulation
@@ -105,8 +105,8 @@ namespace path_planner {
             K::Point_2 p2 = iter->first->vertex((iter->second + 2) % 3)->point();
 
             // build points just to perform map lookup
-            path_planner::Point p1Query = path_planner::Point(p1.x(), p1.y());
-            path_planner::Point p2Query = path_planner::Point(p2.x(), p2.y());
+            lart_common::Point p1Query = lart_common::Point(p1.x(), p1.y());
+            lart_common::Point p2Query = lart_common::Point(p2.x(), p2.y());
 
             // add p2 as neighbor of p1
             statesByPosition[p1Query]->addNeighbor(statesByPosition[p2Query]);
@@ -119,11 +119,11 @@ namespace path_planner {
         return this->carState;
     }
 
-    std::shared_ptr<path_planner::State> Environment::getGoalState() const {
+    std::shared_ptr<lart_common::State> Environment::getGoalState() const {
         return this->goalState;
     }
 
-    void Environment::setGoalState(const std::shared_ptr<path_planner::State> &state) {
+    void Environment::setGoalState(const std::shared_ptr<lart_common::State> &state) {
         this->goalState = state;
     }
 
@@ -133,10 +133,10 @@ namespace path_planner {
             throw std::runtime_error("Car state not defined, can't compute goal position!");
 
         // allocate the goal state
-        std::shared_ptr<path_planner::State> goalState = std::make_shared<path_planner::State>();
+        std::shared_ptr<lart_common::State> goalState = std::make_shared<lart_common::State>();
 
         // set the position "distance" metres in front of the car
-        path_planner::Point goalPosition = path_planner::Point(this->carState->getPosition().getX() +
+        lart_common::Point goalPosition = lart_common::Point(this->carState->getPosition().getX() +
                 (distance * sin(this->carState->getPosition().getTheta())),
                                                                (this->carState->getPosition().getY() +
                                                                        (distance * cos(this->carState->getPosition().getTheta()))));

@@ -7,9 +7,9 @@
 namespace path_planner {
     namespace search {
         namespace heuristics {
-            double ClosestConeFindingHeuristic::compute(const std::shared_ptr<path_planner::State>& state1,
-                                                        const std::shared_ptr<path_planner::State>& state2,
-                                                        const std::shared_ptr<path_planner::State>& goalState,
+            double ClosestConeFindingHeuristic::compute(const std::shared_ptr<lart_common::State>& state1,
+                                                        const std::shared_ptr<lart_common::State>& state2,
+                                                        const std::shared_ptr<lart_common::State>& goalState,
                                                         double currentGCost) {
                 // f(n) = g(n)
                 return currentGCost + state1->getPosition().distanceTo(state2->getPosition());

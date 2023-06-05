@@ -6,17 +6,17 @@
 
 namespace path_planner {
     namespace search {
-        path_planner::Path BreadthFirstSearch::search() {
+        lart_common::Path BreadthFirstSearch::search() {
 
-            path_planner::Path path;
+            lart_common::Path path;
 
-            std::queue<std::shared_ptr<path_planner::State>> frontier;
+            std::queue<std::shared_ptr<lart_common::State>> frontier;
             // to track visited nodes
-            std::unordered_set<std::shared_ptr<path_planner::State>> visited;
+            std::unordered_set<std::shared_ptr<lart_common::State>> visited;
             // to track parents of the states
-            std::unordered_map<std::shared_ptr<path_planner::State>,std::shared_ptr<path_planner::State>> parent;
+            std::unordered_map<std::shared_ptr<lart_common::State>,std::shared_ptr<lart_common::State>> parent;
 
-            std::shared_ptr<path_planner::State> currentState;
+            std::shared_ptr<lart_common::State> currentState;
 
             visited.insert(this->initialState);
             frontier.push(this->initialState);

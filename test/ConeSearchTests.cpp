@@ -4,7 +4,7 @@
 
 #include <gtest/gtest.h>
 #include <delaunay_path_planner_core/tests/Misc.h>
-#include <delaunay_path_planner_core/State.h>
+#include <lart_common/State.h>
 #include <delaunay_path_planner_core/search/heuristics/PathFindingHeuristic.h>
 
 class ConeSearchTests : public ::testing::Test {
@@ -25,12 +25,12 @@ class ConeSearchTests : public ::testing::Test {
 
 TEST_F(ConeSearchTests, findClosestYellow) {
 
-    std::shared_ptr<path_planner::State> closestYellowCone = nullptr;
-    path_planner::search::heuristics::PathFindingHeuristic::findClosestConeRoutine(path_planner::YELLOW_CONE_OCCUPANCY,
+    std::shared_ptr<lart_common::State> closestYellowCone = nullptr;
+    path_planner::search::heuristics::PathFindingHeuristic::findClosestConeRoutine(lart_common::YELLOW_CONE_OCCUPANCY,
                            straightSegmentEnvironment.getCarState(),
                            closestYellowCone);
 
-    path_planner::Point expectedPosition(-2, 1);
+    lart_common::Point expectedPosition(-2, 1);
 
     if(closestYellowCone == nullptr)
         FAIL();
@@ -40,12 +40,12 @@ TEST_F(ConeSearchTests, findClosestYellow) {
 
 TEST_F(ConeSearchTests, findClosestBlue) {
 
-    std::shared_ptr<path_planner::State> closestBlueCone = nullptr;
-    path_planner::search::heuristics::PathFindingHeuristic::findClosestConeRoutine(path_planner::BLUE_CONE_OCCUPANCY,
+    std::shared_ptr<lart_common::State> closestBlueCone = nullptr;
+    path_planner::search::heuristics::PathFindingHeuristic::findClosestConeRoutine(lart_common::BLUE_CONE_OCCUPANCY,
                                                                                    straightSegmentEnvironment.getCarState(),
                                                                                    closestBlueCone);
 
-    path_planner::Point expectedPosition(2, 1);
+    lart_common::Point expectedPosition(2, 1);
 
     if(closestBlueCone == nullptr)
         FAIL();

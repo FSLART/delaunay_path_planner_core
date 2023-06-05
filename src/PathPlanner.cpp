@@ -8,21 +8,21 @@
 
 namespace path_planner {
 
-    path_planner::Path PathPlanner::search(const Environment &e) {
-        path_planner::Path path;
+    lart_common::Path PathPlanner::search(const Environment &e) {
+        lart_common::Path path;
 
         // the planning starting state is the current car state
-        std::shared_ptr<path_planner::State> currentState = e.getCarState();
+        std::shared_ptr<lart_common::State> currentState = e.getCarState();
         if(currentState == nullptr)
             throw std::runtime_error("Tried to search on an environment with unknown car state!");
 
-        std::shared_ptr<path_planner::State> goalState = e.getGoalState();
+        std::shared_ptr<lart_common::State> goalState = e.getGoalState();
         if(goalState == nullptr)
             throw std::runtime_error("Tried to search on an environment without a defined goal state!");
 
         // the state comparator here is pretty standard
-        auto comparator = [](const std::shared_ptr<path_planner::State>& s1,
-                const std::shared_ptr<path_planner::State>& s2) {
+        auto comparator = [](const std::shared_ptr<lart_common::State>& s1,
+                const std::shared_ptr<lart_common::State>& s2) {
             return s1 == s2;
         };
 

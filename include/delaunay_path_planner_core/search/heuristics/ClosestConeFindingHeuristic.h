@@ -12,9 +12,9 @@ namespace path_planner {
         namespace heuristics {
 
             class ClosestConeFindingHeuristic : path_planner::search::heuristics::Heuristic {
-                double compute(const std::shared_ptr<path_planner::State>& state1,
-                               const std::shared_ptr<path_planner::State>& state2,
-                               const std::shared_ptr<path_planner::State>& goalState, double currentGCost=0) override;
+                double compute(const std::shared_ptr<lart_common::State>& state1,
+                               const std::shared_ptr<lart_common::State>& state2,
+                               const std::shared_ptr<lart_common::State>& goalState, double currentGCost=0) override;
             };
 
         } // path_planner

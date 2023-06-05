@@ -6,9 +6,9 @@
 
 namespace path_planner::search::heuristics {
 
-    double AStarHeuristic::compute(const std::shared_ptr<path_planner::State>& state1,
-                                   const std::shared_ptr<path_planner::State>& state2,
-                                   const std::shared_ptr<path_planner::State>& goalState, double currentGCost = 0) {
+    double AStarHeuristic::compute(const std::shared_ptr<lart_common::State>& state1,
+                                   const std::shared_ptr<lart_common::State>& state2,
+                                   const std::shared_ptr<lart_common::State>& goalState, double currentGCost = 0) {
 
         if(!state1->getNeighbors().count(state2))
             throw std::runtime_error("State transition not possible!");

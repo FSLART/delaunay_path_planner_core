@@ -13,28 +13,28 @@ namespace path_planner::search {
     AStar<HeuristicT>::AStar() = default;
 
     template <typename HeuristicT>
-    path_planner::Path AStar<HeuristicT>::search() {
+    lart_common::Path AStar<HeuristicT>::search() {
 
         if(this->cmp == nullptr)
             throw std::runtime_error("State comparison criteria was not set!");
 
-        path_planner::Path path;
+        lart_common::Path path;
         // Create the priority queue with a lambda comparator
-        std::priority_queue<std::pair<double, std::shared_ptr<path_planner::State>>,
-                std::vector<std::pair<double, std::shared_ptr<path_planner::State>>>,
+        std::priority_queue<std::pair<double, std::shared_ptr<lart_common::State>>,
+                std::vector<std::pair<double, std::shared_ptr<lart_common::State>>>,
                 decltype([](const auto& a, const auto& b) {
                     return a.first > b.first; // Compare by the first element (cost)
                 })> frontier;
-        std::unordered_map<std::shared_ptr<path_planner::State>, std::shared_ptr<path_planner::State>> parent;
-        std::unordered_map<std::shared_ptr<path_planner::State>, double> gScores;
-        std::unordered_map<std::shared_ptr<path_planner::State>, double> fScores;
+        std::unordered_map<std::shared_ptr<lart_common::State>, std::shared_ptr<lart_common::State>> parent;
+        std::unordered_map<std::shared_ptr<lart_common::State>, double> gScores;
+        std::unordered_map<std::shared_ptr<lart_common::State>, double> fScores;
 
         frontier.push(std::make_pair(0.0, this->initialState));
         gScores[this->initialState] = 0.0;
         fScores[this->initialState] = this->initialState->getPosition().distanceTo(this->goalState->getPosition()); // f = 0 + h
 
         while (!frontier.empty()) {
-            std::shared_ptr<path_planner::State> currentState = frontier.top().second;
+            std::shared_ptr<lart_common::State> currentState = frontier.top().second;
             frontier.pop();
 
             if (this->cmp(currentState, this->goalState)) {

@@ -17,7 +17,7 @@ namespace path_planner::search {
 
         public:
             AStar();
-            path_planner::Path search() override;
+            lart_common::Path search() override;
     };
 
 } // path_planner

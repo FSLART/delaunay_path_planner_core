@@ -9,8 +9,8 @@
 #include <vector>
 #include <unordered_map>
 #include <memory>
-#include <delaunay_path_planner_core/Cone.h>
-#include <delaunay_path_planner_core/State.h>
+#include <lart_common/Cone.h>
+#include <lart_common/State.h>
 #include <CGAL/Exact_predicates_inexact_constructions_kernel.h>
 #include <CGAL/Delaunay_triangulation_2.h>
 
@@ -26,42 +26,42 @@ namespace path_planner {
     class Environment {
         private:
             /*! @brief The collection of cones on the environment. */
-            std::set<std::shared_ptr<path_planner::State>> cones;
+            std::set<std::shared_ptr<lart_common::State>> cones;
             /*! @brief The current state of the car on the environnment. */
-            std::shared_ptr<path_planner::State> carState = nullptr;
-            std::shared_ptr<path_planner::State> goalState = nullptr;
+            std::shared_ptr<lart_common::State> carState = nullptr;
+            std::shared_ptr<lart_common::State> goalState = nullptr;
 
         public:
             Environment();
             ~Environment();
 
             /*! @brief Get the cone collection. */
-            std::set<std::shared_ptr<path_planner::State>> getCones() const;
+            std::set<std::shared_ptr<lart_common::State>> getCones() const;
 
             /*! @brief Get the car state. */
-            std::shared_ptr<path_planner::State> getCarState() const;
+            std::shared_ptr<lart_common::State> getCarState() const;
 
             /*! @brief Set/update the car state.
              *
              * @param state State to set.
              */
-            void setCarState(const std::shared_ptr<path_planner::State>& state);
+            void setCarState(const std::shared_ptr<lart_common::State>& state);
             /*! \brief Get the car's goal state. */
-            std::shared_ptr<path_planner::State> getGoalState() const;
+            std::shared_ptr<lart_common::State> getGoalState() const;
             /*! \brief Set the ca's goal state. */
-            void setGoalState(const std::shared_ptr<path_planner::State>& state);
+            void setGoalState(const std::shared_ptr<lart_common::State>& state);
             /*! @brief Add a cone to the environment.
              *
              * @param cone Cone to add.
              */
-            void addCone(const path_planner::Cone& cone);
+            void addCone(const lart_common::Cone& cone);
 
             /*! @brief Generate the graph by doing a double Delaunay triangulation.
              * The states get a relation among them.
              *
              * @return The starting node of the graph (the car state)
              */
-            std::shared_ptr<State> generateGraph();
+            std::shared_ptr<lart_common::State> generateGraph();
 
             /*! \brief Set the goal state as a point "distance" metres in front of the car.
              *
