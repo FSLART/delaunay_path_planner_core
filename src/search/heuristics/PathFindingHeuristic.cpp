@@ -44,6 +44,7 @@ namespace path_planner {
 
                 std::shared_ptr<lart_common::State> closestYellowCone = nullptr;
 
+                // the destination state is itself a yellow cone
                 if(state2->getOccupancy() == lart_common::YELLOW_CONE_OCCUPANCY) {
                     closestYellowCone = state2;
                 } else { // start a thread to search the closest yellow
@@ -54,6 +55,7 @@ namespace path_planner {
 
                 std::shared_ptr<lart_common::State> closestBlueCone = nullptr;
 
+                // the destination state is itself a blue cone
                 if(state2->getOccupancy() == lart_common::BLUE_CONE_OCCUPANCY) {
                     closestBlueCone = state2;
                 } else { // start a thread to search the closest blue
@@ -61,6 +63,7 @@ namespace path_planner {
                                          std::ref(closestBlueCone));
                 }
 
+                // wait for the cone finding threads
                 for(auto & t : threads) {
                     if(t.joinable())
                         t.join();
