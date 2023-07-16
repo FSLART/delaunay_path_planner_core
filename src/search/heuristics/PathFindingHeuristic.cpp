@@ -73,7 +73,7 @@ namespace path_planner {
                 double distanceToYellow = closestYellowCone->getPosition().distanceTo(state2->getPosition());
                 double distanceToBlue = closestBlueCone->getPosition().distanceTo(state2->getPosition());
 
-                return abs(distanceToBlue - distanceToYellow);
+                return pow(distanceToBlue - distanceToYellow, 2);
             }
 
         } // path_planner
