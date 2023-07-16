@@ -10,6 +10,8 @@
 #include <queue>
 #include <list>
 
+#define H_SCORE_WEIGHT 1
+
 namespace path_planner::search {
 
     template <typename HeuristicT>

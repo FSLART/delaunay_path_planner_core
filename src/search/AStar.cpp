@@ -51,7 +51,7 @@ namespace path_planner::search {
                 if (gScores.find(child) == gScores.end() || tentativeGScore < gScores[child]) {
                     parent[child] = currentState;
                     gScores[child] = tentativeGScore;
-                    fScores[child] = tentativeGScore + child->getPosition().distanceTo(this->goalState->getPosition());
+                    fScores[child] = tentativeGScore + (H_SCORE_WEIGHT * child->getPosition().distanceTo(this->goalState->getPosition()));
                     frontier.emplace(fScores[child], child);
                 }
             }
